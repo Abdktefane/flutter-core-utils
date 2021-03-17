@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   
+    
+  
   # DATA
   equatable: ^1.2.5 
   fimber: ^0.4.4

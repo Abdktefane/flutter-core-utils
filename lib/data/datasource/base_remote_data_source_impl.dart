@@ -114,16 +114,6 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
     });
   }
 
-  // TODO(abd): add it as basic class
-  // _wrapWithBaseData(data, int siteId) {
-  //   final wrappedData = Map<String, dynamic>();
-  //   final siteIdParam = siteId ?? prefsRepository.siteId ?? -1;
-  //   wrappedData['langCode'] = prefsRepository.languageCode ?? LANGUAGE_DEFAULT;
-  //   if (siteIdParam > 0) wrappedData['siteId'] = siteIdParam;
-  //   if (data != null) wrappedData['data'] = data;
-  //   return wrappedData;
-  // }
-
   Future<NetworkResult<T>> _checkNetwork<T>(
     Future<NetworkResult<T>> Function() body,
   ) async {

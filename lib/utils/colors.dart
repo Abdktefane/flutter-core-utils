@@ -13,4 +13,3 @@ const PURPLE = Color(0xFF7244F6);
 const TEXT_COLOR = Color(0xFF1E3340);
 const LIGHT_GREEN = Color(0xFF00D28F);
 
-// tag v2.0.0

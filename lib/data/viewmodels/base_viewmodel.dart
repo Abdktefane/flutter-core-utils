@@ -73,6 +73,8 @@ abstract class _BaseViewmodelBase with Store {
     String message, {
     VoidCallback action,
     Color backgroundColor = DARK_GREY,
+    Color disabledTextColor = WHITE,
+    Color textColor = WHITE,
     Duration duration = const Duration(minutes: 10),
   }) {
     scaffoldKey.currentState.showSnackBar(
@@ -82,8 +84,8 @@ abstract class _BaseViewmodelBase with Store {
             ? SnackBarAction(
                 label: 'retry',
                 onPressed: action,
-                disabledTextColor: WHITE,
-                textColor: WHITE,
+                disabledTextColor: disabledTextColor,
+                textColor: textColor,
               )
             : null,
         content: Text(

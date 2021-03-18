@@ -46,7 +46,7 @@ class ResultView extends StatelessWidget {
             visible: showBackButton,
             child: AppBar(
               leading: BackButton(
-                color: PRIMARY,
+                color: PURPLE,
                 onPressed: () => context.pop(),
               ),
               title: Text(
@@ -70,7 +70,7 @@ class ResultView extends StatelessWidget {
                     decoration: BoxDecoration(color: WHITE, borderRadius: BorderRadius.circular(12.0)),
                     child: Image.asset(
                       icon,
-                      color: PRIMARY,
+                      color: PURPLE,
                       width: containerSize - 48,
                       height: containerSize - 48,
                     ),

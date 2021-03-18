@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 
 import 'base_remote_data_source.dart';
 
-//TODO(abd): seperate this logic and prefsrepository
 abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
   final Dio client;
   final DataConnectionChecker connectionChecker;

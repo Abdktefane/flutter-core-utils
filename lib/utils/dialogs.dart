@@ -55,6 +55,7 @@ Future showStatusDialog(
   Function onTap,
   bool isSuccess = true,
   bool dismissible = true,
+  Color successIconColor = PURPLE,
 }) async {
   final containerSize = MediaQuery.of(context).orientation == Orientation.portrait
       ? MediaQuery.of(context).size.width * 0.33
@@ -82,7 +83,7 @@ Future showStatusDialog(
                 ),
                 child: Icon(
                   isSuccess ? Icons.check_circle_outline : Icons.error_outline,
-                  color: PRIMARY,
+                  color: successIconColor,
                   size: containerSize - 48,
                 ),
               ),
@@ -109,27 +110,36 @@ Future showStatusDialog(
   );
 }
 
-Future<void> showConfirmDialog(BuildContext context, String message, Function onConfirm) async {
+Future<void> showConfirmDialog(
+  BuildContext context,
+  String message,
+  Function onConfirm, {
+  TextStyle textStyle,
+  TextStyle cancelButtonStyle,
+  TextStyle confirmButtonStyle,
+}) async {
   await showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         content: Text(
           message,
-          style: TextStyle(
-            color: DARK_GREY,
-            fontSize: 16,
-          ),
+          style: textStyle ??
+              TextStyle(
+                color: DARK_GREY,
+                fontSize: 16,
+              ),
         ),
         actions: [
           FlatButton(
             child: Text(
               AppLocalizations.of(context).translate('lbl_cancel'),
-              style: TextStyle(
-                color: GREY,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
+              style: cancelButtonStyle ??
+                  TextStyle(
+                    color: GREY,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -138,11 +148,12 @@ Future<void> showConfirmDialog(BuildContext context, String message, Function on
           FlatButton(
             child: Text(
               AppLocalizations.of(context).translate('lbl_ok'),
-              style: TextStyle(
-                color: PRIMARY,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
+              style: confirmButtonStyle ??
+                  TextStyle(
+                    color: PURPLE,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
             ),
             onPressed: () {
               onConfirm();

@@ -130,12 +130,18 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
   void showSnack(String message,
       {VoidCallback action,
       Color backgroundColor = DARK_GREY,
+      Color disabledTextColor = WHITE,
+      Color textColor = WHITE,
       Duration duration = const Duration(minutes: 10)}) {
     final _$actionInfo = _$_BaseViewmodelBaseActionController.startAction(
         name: '_BaseViewmodelBase.showSnack');
     try {
       return super.showSnack(message,
-          action: action, backgroundColor: backgroundColor, duration: duration);
+          action: action,
+          backgroundColor: backgroundColor,
+          disabledTextColor: disabledTextColor,
+          textColor: textColor,
+          duration: duration);
     } finally {
       _$_BaseViewmodelBaseActionController.endAction(_$actionInfo);
     }

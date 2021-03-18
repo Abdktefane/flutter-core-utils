@@ -45,14 +45,10 @@ class ExpansionBar extends StatefulWidget {
   ExpansionBarState createState() => ExpansionBarState();
 }
 
-class ExpansionBarState extends State<ExpansionBar>
-    with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween =
-      CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderStateMixin {
+  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -78,11 +74,9 @@ class ExpansionBarState extends State<ExpansionBar>
     _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor =
-        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded =
-        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
   }
 
@@ -141,8 +135,7 @@ class ExpansionBarState extends State<ExpansionBar>
         }
         PageStorage.of(context)?.writeState(context, _isExpanded);
       });
-      if (widget.onExpansionChanged != null)
-        widget.onExpansionChanged(_isExpanded);
+      if (widget.onExpansionChanged != null) widget.onExpansionChanged(_isExpanded);
     }
   }
 
@@ -168,10 +161,7 @@ class ExpansionBarState extends State<ExpansionBar>
                 onTap: _handleTap,
                 leading: widget.leading,
                 title: DefaultTextStyle(
-                  style: Theme.of(context)
-                      .textTheme
-                      .subhead
-                      .copyWith(color: titleColor),
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(color: titleColor),
                   child: widget.title,
                 ),
                 trailing: widget.trailing ??
@@ -201,7 +191,7 @@ class ExpansionBarState extends State<ExpansionBar>
     final ThemeData theme = Theme.of(context);
     _borderColorTween..end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subhead.color
+      ..begin = theme.textTheme.subtitle1.color
       ..end = theme.accentColor;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor

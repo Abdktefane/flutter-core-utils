@@ -10,12 +10,6 @@ import 'package:flutter/foundation.dart';
 enum METHOD { GET, POST, PUT, DELETE }
 
 typedef Mapper<T> = T Function(Object);
-// TODO(abd): change location to common
-// typedef BaseMapper<T> = BaseResponseModel<T> Function(Map<String, dynamic>);
-// typedef ListMapper<T> = ListBaseResponseModel<T> Function(Map<String, dynamic>);
-// typedef PaginationMapper<T> = BaseResponseModel<PaginationResponse<T>> Function(
-//   Map<String, dynamic>,
-// );
 
 abstract class BaseRemoteDataSource {
   Future<Response> performGetRequest({

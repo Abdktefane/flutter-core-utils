@@ -28,13 +28,13 @@ class AnimatedDialog extends StatelessWidget {
             icon: Icon(
               Icons.close,
               size: 30,
-              color: PRIMARY,
+              color: PURPLE,
             ),
           ),
           Text(
             title,
             style: TextStyle(
-              color: PRIMARY,
+              color: PURPLE,
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),

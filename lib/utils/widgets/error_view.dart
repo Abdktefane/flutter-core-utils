@@ -33,7 +33,7 @@ class ErrorView extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             RaisedButton(
-              color: PRIMARY,
+              color: PURPLE,
               onPressed: onRetry,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(

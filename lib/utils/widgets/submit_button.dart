@@ -27,8 +27,8 @@ class SubmitButton extends StatelessWidget {
     this.borderRadius = 4.0,
     this.verticalPadding = 10.0,
     this.textColor = WHITE,
-    this.color = ACCENT,
-    this.borderColor = ACCENT,
+    this.color = LIGHT_GREEN,
+    this.borderColor = LIGHT_GREEN,
     this.icon,
   });
 

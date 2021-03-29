@@ -22,7 +22,11 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
   void didChangeDependencies() {
     super.didChangeDependencies();
     // TODO(abd): check if this not make error or we should try to put it in initState()
-    viewmodel = Provider.of<V>(context, listen: false) ?? GetIt.I<V>();
+    try {
+      viewmodel = Provider.of<V>(context, listen: false);
+    } catch (_) {
+      viewmodel = GetIt.I<V>();
+    }
     addConnectionErroHandlerDisposer(viewmodel, handler: connectionErroHandler);
     theme = context.theme;
     textTheme = theme.textTheme;

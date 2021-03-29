@@ -18,7 +18,7 @@ dependencies:
   google_maps_flutter: ^0.5.21
 
   # LOCALIZATION
-  intl: ^0.16.1
+  # intl: ^0.16.1
 
   # NETWORKING 
   dio: ^3.0.10

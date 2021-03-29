@@ -5,6 +5,7 @@ import 'package:core_sdk/utils/mobx/side_effect_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T> with SideEffectMinxin {
   V viewmodel;
@@ -13,7 +14,7 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
   @override
   void initState() {
     super.initState();
-    viewmodel = GetIt.I<V>();
+
     addContextHandlerDisposer(viewmodel);
   }
 
@@ -21,6 +22,7 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
   void didChangeDependencies() {
     super.didChangeDependencies();
     // TODO(abd): check if this not make error or we should try to put it in initState()
+    viewmodel = Provider.of<V>(context, listen: false) ?? GetIt.I<V>();
     addConnectionErroHandlerDisposer(viewmodel, handler: connectionErroHandler);
     theme = context.theme;
     textTheme = theme.textTheme;

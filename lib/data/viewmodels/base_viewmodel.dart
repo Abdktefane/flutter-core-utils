@@ -77,27 +77,43 @@ abstract class _BaseViewmodelBase with Store {
     Color textColor = WHITE,
     Duration duration = const Duration(minutes: 10),
   }) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: duration,
-        action: action != null
-            ? SnackBarAction(
-                label: 'retry',
-                onPressed: action,
-                disabledTextColor: disabledTextColor,
-                textColor: textColor,
-              )
-            : null,
-        content: Text(
-          message ?? 'unknown',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
+    scaffoldKey.currentState.showSnackBar(snackBarWidget(
+      message,
+      action: action,
+      backgroundColor: backgroundColor,
+      disabledTextColor: disabledTextColor,
+      duration: duration,
+      textColor: textColor,
+    ));
+  }
+
+  SnackBar snackBarWidget(
+    String message, {
+    VoidCallback action,
+    Color backgroundColor = DARK_GREY,
+    Color disabledTextColor = WHITE,
+    Color textColor = WHITE,
+    Duration duration = const Duration(minutes: 10),
+  }) {
+    return SnackBar(
+      duration: duration,
+      action: action != null
+          ? SnackBarAction(
+              label: 'retry',
+              onPressed: action,
+              disabledTextColor: disabledTextColor,
+              textColor: textColor,
+            )
+          : null,
+      content: Text(
+        message ?? 'unknown',
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
         ),
-        backgroundColor: backgroundColor,
       ),
+      backgroundColor: backgroundColor,
     );
   }
 

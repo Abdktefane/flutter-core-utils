@@ -38,5 +38,5 @@ abstract class BaseRemoteDataSource {
     Options options,
   });
 
-  Map<String, dynamic> wrapWithBaseData(dynamic data, int siteId);
+  Map<String, dynamic> wrapWithBaseData(dynamic data);
 }

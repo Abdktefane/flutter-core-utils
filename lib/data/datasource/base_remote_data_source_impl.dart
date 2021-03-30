@@ -55,7 +55,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
           case METHOD.POST:
             response = await performPostRequest(
               endpoint: endpoint,
-              data: wrapData ? wrapWithBaseData(data, siteId) : data,
+              data: wrapData ? wrapWithBaseData(data) : data,
               params: params,
               options: options,
             );
@@ -63,7 +63,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
           case METHOD.PUT:
             response = await performPutRequest(
               endpoint: endpoint,
-              data: wrapData ? wrapWithBaseData(data, siteId) : data,
+              data: wrapData ? wrapWithBaseData(data) : data,
               params: params,
               options: options,
             );
@@ -71,7 +71,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
           case METHOD.DELETE:
             response = await performDeleteRequest(
               endpoint: endpoint,
-              data: wrapData ? wrapWithBaseData(data, siteId) : data,
+              data: wrapData ? wrapWithBaseData(data) : data,
               params: params,
               options: options,
             );

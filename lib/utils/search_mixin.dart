@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 mixin SearchMixin {
   final Debounce _debouncer = Debounce();
+  final FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController;
   String lastQuery = '';
 
@@ -12,6 +13,7 @@ mixin SearchMixin {
 
   void disposeSearch() {
     searchController.dispose();
+    searchFocusNode.dispose();
   }
 
   void _handleTyping() {

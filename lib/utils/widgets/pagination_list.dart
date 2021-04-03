@@ -9,6 +9,7 @@ class PaginationList<T> extends StatelessWidget {
     @required this.canLoadMore,
     @required this.scrollController,
     @required this.emptyWidget,
+    this.padding = 0,
     this.shrinkWrap = true,
     this.physics = const BouncingScrollPhysics(),
     this.loadingWidget = const Padding(padding: EdgeInsets.all(8.0), child: Center(child: CircularProgressIndicator())),
@@ -22,6 +23,7 @@ class PaginationList<T> extends StatelessWidget {
   final ScrollController scrollController;
   final Widget loadingWidget;
   final Widget emptyWidget;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class PaginationList<T> extends StatelessWidget {
       physics: physics,
       itemCount: dataList.length + 1,
       itemBuilder: (_, index) => index != dataList.length
-          ? cardBuilder(dataList[index])
+          ? Padding(padding: EdgeInsets.only(bottom: padding), child: cardBuilder(dataList[index]))
           : canLoadMore
               ? loadingWidget
               : SizedBox(),

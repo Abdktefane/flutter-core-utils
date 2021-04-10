@@ -18,6 +18,7 @@ class SubmitButton extends StatelessWidget {
   final Widget icon;
 
   SubmitButton({
+    Key key,
     @required this.onSubmit,
     @required this.title,
     this.isLoading = false,
@@ -30,7 +31,7 @@ class SubmitButton extends StatelessWidget {
     this.color = LIGHT_GREEN,
     this.borderColor = LIGHT_GREEN,
     this.icon,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

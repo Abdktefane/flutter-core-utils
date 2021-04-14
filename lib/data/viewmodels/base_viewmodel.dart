@@ -135,17 +135,20 @@ abstract class _BaseViewmodelBase with Store {
   ObservableFuture<T> futureWrapper<T>(
     Future<T> Function() block, {
     void Function(String) catchBlock,
+    void Function(dynamic cause) unknownErrorHandler,
   }) {
     connectionError = null;
     return ObservableFuture(_wrapError<T>(
       block(),
       block: catchBlock,
+      unknownErrorHandler: unknownErrorHandler,
     ));
   }
 
   Future<T> _wrapError<T>(
     Future<T> future, {
     void Function(String) block,
+    void Function(dynamic cause) unknownErrorHandler,
   }) =>
       future.catchError((error) {
         if (error is CallException && error.cause is NetworkFailure) {
@@ -156,7 +159,7 @@ abstract class _BaseViewmodelBase with Store {
           block(error.cause.message);
         } else {
           logger.e('unknown error in base view model $error');
-          unknownErrorHandler(error);
+          unknownErrorHandler != null ? unknownErrorHandler(error) : this.unknownErrorHandler(error);
         }
         throw error;
       });

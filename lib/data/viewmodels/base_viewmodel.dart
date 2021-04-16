@@ -136,12 +136,17 @@ abstract class _BaseViewmodelBase with Store {
     Future<T> Function() block, {
     void Function(String) catchBlock,
     void Function(dynamic cause) unknownErrorHandler,
+    bool useLoader = false,
   }) {
     connectionError = null;
+    if (useLoader) {
+      startLoading();
+    }
     return ObservableFuture(_wrapError<T>(
       block(),
       block: catchBlock,
       unknownErrorHandler: unknownErrorHandler,
+      useLoader: useLoader,
     ));
   }
 
@@ -149,6 +154,7 @@ abstract class _BaseViewmodelBase with Store {
     Future<T> future, {
     void Function(String) block,
     void Function(dynamic cause) unknownErrorHandler,
+    bool useLoader = false,
   }) =>
       future.catchError((error) {
         if (error is CallException && error.cause is NetworkFailure) {
@@ -161,6 +167,9 @@ abstract class _BaseViewmodelBase with Store {
           logger.e('unknown error in base view model $error');
           unknownErrorHandler != null ? unknownErrorHandler(error) : this.unknownErrorHandler(error);
         }
+        if (useLoader) {
+          stopLoading();
+        }
         throw error;
       });
 
@@ -169,5 +178,7 @@ abstract class _BaseViewmodelBase with Store {
   //  async {
   //   await cancelSubscription();
   // }
-
+  //
+  @action
+  void toggleLoading() => isLoading = !isLoading;
 }

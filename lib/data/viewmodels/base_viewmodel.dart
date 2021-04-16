@@ -146,15 +146,17 @@ abstract class _BaseViewmodelBase with Store {
       block(),
       block: catchBlock,
       unknownErrorHandler: unknownErrorHandler,
-      useLoader: useLoader,
-    ));
+    ).whenComplete(() {
+      if (useLoader) {
+        stopLoading();
+      }
+    }));
   }
 
   Future<T> _wrapError<T>(
     Future<T> future, {
     void Function(String) block,
     void Function(dynamic cause) unknownErrorHandler,
-    bool useLoader = false,
   }) =>
       future.catchError((error) {
         if (error is CallException && error.cause is NetworkFailure) {
@@ -166,9 +168,6 @@ abstract class _BaseViewmodelBase with Store {
         } else {
           logger.e('unknown error in base view model $error');
           unknownErrorHandler != null ? unknownErrorHandler(error) : this.unknownErrorHandler(error);
-        }
-        if (useLoader) {
-          stopLoading();
         }
         throw error;
       });

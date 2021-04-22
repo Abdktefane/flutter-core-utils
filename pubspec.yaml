@@ -15,7 +15,7 @@ dependencies:
   # DATA
   equatable: ^1.2.5 
   fimber: ^0.4.4
-  google_maps_flutter: ^0.5.21
+  google_maps_flutter: ^1.2.0
 
   # LOCALIZATION
   # intl: ^0.16.1

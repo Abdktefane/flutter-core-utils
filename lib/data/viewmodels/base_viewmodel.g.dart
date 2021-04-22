@@ -132,7 +132,8 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
       Color backgroundColor = DARK_GREY,
       Color disabledTextColor = WHITE,
       Color textColor = WHITE,
-      Duration duration = const Duration(minutes: 10)}) {
+      Duration duration = const Duration(minutes: 10),
+      GlobalKey<ScaffoldState> scaffoldKey}) {
     final _$actionInfo = _$_BaseViewmodelBaseActionController.startAction(
         name: '_BaseViewmodelBase.showSnack');
     try {
@@ -141,7 +142,19 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
           backgroundColor: backgroundColor,
           disabledTextColor: disabledTextColor,
           textColor: textColor,
-          duration: duration);
+          duration: duration,
+          scaffoldKey: scaffoldKey);
+    } finally {
+      _$_BaseViewmodelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleLoading() {
+    final _$actionInfo = _$_BaseViewmodelBaseActionController.startAction(
+        name: '_BaseViewmodelBase.toggleLoading');
+    try {
+      return super.toggleLoading();
     } finally {
       _$_BaseViewmodelBaseActionController.endAction(_$actionInfo);
     }

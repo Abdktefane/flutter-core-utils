@@ -76,15 +76,16 @@ abstract class _BaseViewmodelBase with Store {
     Color disabledTextColor = WHITE,
     Color textColor = WHITE,
     Duration duration = const Duration(minutes: 10),
+    GlobalKey<ScaffoldState> scaffoldKey,
   }) {
-    scaffoldKey.currentState.showSnackBar(snackBarWidget(
-      message,
-      action: action,
-      backgroundColor: backgroundColor,
-      disabledTextColor: disabledTextColor,
-      duration: duration,
-      textColor: textColor,
-    ));
+    (scaffoldKey ?? this.scaffoldKey).currentState.showSnackBar(snackBarWidget(
+          message,
+          action: action,
+          backgroundColor: backgroundColor,
+          disabledTextColor: disabledTextColor,
+          duration: duration,
+          textColor: textColor,
+        ));
   }
 
   SnackBar snackBarWidget(

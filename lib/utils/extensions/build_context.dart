@@ -1,8 +1,17 @@
 import 'package:core_sdk/data/viewmodels/base_viewmodel.dart';
 import 'package:core_sdk/data/viewmodels/mobx_provider.dart';
 import 'package:core_sdk/utils/app_localizations.dart';
+import 'package:core_sdk/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+const List<String> ltrLanguages = [
+  LANGUAGE_ENGLISH,
+];
+
+const List<String> rtlLanguages = [
+  LANGUAGE_ARABIC,
+];
 
 extension BuildContextExtension on BuildContext {
   //* THEME STUFF *//
@@ -66,4 +75,7 @@ extension BuildContextExtension on BuildContext {
         predicate,
         arguments: arguments,
       );
+
+  bool get isRtl => rtlLanguages.contains(locale.locale.languageCode);
+  bool get isLtr => !isRtl;
 }

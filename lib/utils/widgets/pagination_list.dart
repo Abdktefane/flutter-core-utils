@@ -29,7 +29,7 @@ class PaginationList<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     if (dataList.isNullOrEmpty) return emptyWidget ?? SizedBox();
     return ListView.builder(
-      shrinkWrap: true,
+      shrinkWrap: shrinkWrap,
       controller: scrollController,
       physics: physics,
       itemCount: dataList.length + 1,

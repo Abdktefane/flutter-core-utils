@@ -8,9 +8,9 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T> with SideEffectMinxin {
-  V? viewmodel;
-  late ThemeData theme;
-  TextTheme? textTheme;
+  late final V viewmodel;
+  late final ThemeData theme;
+  late final textTheme;
   @override
   void initState() {
     super.initState();
@@ -30,7 +30,7 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
   @override
   void dispose() {
     disposeSideEffects();
-    viewmodel?.dispose();
+    viewmodel.dispose();
     super.dispose();
   }
 

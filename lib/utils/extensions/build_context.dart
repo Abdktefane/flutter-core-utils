@@ -65,7 +65,7 @@ extension BuildContextExtension on BuildContext {
         ),
       );
 
-  Future<T?> pushNamedAndRemoveUntil<T extends Object>(
+  Future<T?> pushNamedAndRemoveUntil<T extends Object?>(
     String newRouteName,
     RoutePredicate predicate, {
     Object? arguments,

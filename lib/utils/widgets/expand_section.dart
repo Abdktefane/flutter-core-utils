@@ -5,7 +5,7 @@ class ExpandedSection extends StatefulWidget {
   final bool expand;
 
   ExpandedSection({
-    @required this.child,
+    required this.child,
     this.expand = false,
   });
 
@@ -15,8 +15,8 @@ class ExpandedSection extends StatefulWidget {
 
 class _ExpandedSectionState extends State<ExpandedSection>
     with SingleTickerProviderStateMixin {
-  AnimationController expandController;
-  Animation<double> animation;
+  late AnimationController expandController;
+  late Animation<double> animation;
 
   @override
   void initState() {

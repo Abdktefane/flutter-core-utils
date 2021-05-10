@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class EmptyView extends StatelessWidget {
   final String content;
-  final String image;
-  final IconData icon;
+  final String? image;
+  final IconData? icon;
 
   EmptyView({
-    @required this.content,
+    required this.content,
     this.image,
     this.icon,
   }) : assert(icon != null || image != null);
@@ -25,7 +25,7 @@ class EmptyView extends StatelessWidget {
                   size: 100.0,
                 )
               : Image.asset(
-                  image,
+                  image!,
                   width: MediaQuery.of(context).size.width * 0.3,
                   fit: BoxFit.contain,
                   color: GREY,

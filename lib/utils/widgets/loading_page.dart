@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({
-    Key key,
-    @required this.isLoading,
-    @required this.child,
+    Key? key,
+    required this.isLoading,
+    required this.child,
     this.loadingWidget = const Center(child: CircularProgressIndicator()),
     this.barrierColor = const Color(0xFFc7c7c7),
     this.animationDuration = const Duration(milliseconds: 400),

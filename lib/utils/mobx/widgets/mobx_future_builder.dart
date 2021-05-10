@@ -5,18 +5,18 @@ import 'package:mobx/mobx.dart';
 
 class MobxFutureBuilder<T> extends StatelessWidget {
   const MobxFutureBuilder({
-    Key key,
-    @required this.future,
-    @required this.onSuccess,
-    @required this.onError,
-    @required this.onLoading,
+    Key? key,
+    required this.future,
+    required this.onSuccess,
+    required this.onError,
+    required this.onLoading,
     this.animatedSwitcherDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 
   final ObservableFuture<T> future;
   final Widget Function(dynamic) onError;
   final Widget Function() onLoading;
-  final Widget Function(T) onSuccess;
+  final Widget Function(T?) onSuccess;
   final Duration animatedSwitcherDuration;
 
   @override

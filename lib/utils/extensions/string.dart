@@ -5,5 +5,5 @@ extension StringExtension on String {
   bool get isNullOrEmpty => this == null || isEmpty;
   static DateFormat formatter = DateFormat.yMMMd();
 
-  static String asDate(String input) => input == null ? null : DateFormat.yMMMd().format(DateTime.parse(input));
+  static String? asDate(String input) => input == null ? null : DateFormat.yMMMd().format(DateTime.parse(input));
 }

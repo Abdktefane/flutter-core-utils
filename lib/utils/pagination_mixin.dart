@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 mixin PaginationMixin {
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   void initPagination() {
     scrollController = ScrollController()..addListener(_handleScrollListner);

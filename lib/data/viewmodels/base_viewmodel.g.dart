@@ -27,13 +27,13 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
   final _$navigatorAtom = Atom(name: '_BaseViewmodelBase.navigator');
 
   @override
-  NavOrder<dynamic> get navigator {
+  NavOrder<dynamic>? get navigator {
     _$navigatorAtom.reportRead();
     return super.navigator;
   }
 
   @override
-  set navigator(NavOrder<dynamic> value) {
+  set navigator(NavOrder<dynamic>? value) {
     _$navigatorAtom.reportWrite(value, super.navigator, () {
       super.navigator = value;
     });
@@ -42,13 +42,13 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
   final _$contextHandlerAtom = Atom(name: '_BaseViewmodelBase.contextHandler');
 
   @override
-  ContextHandler<dynamic> get contextHandler {
+  ContextHandler<dynamic>? get contextHandler {
     _$contextHandlerAtom.reportRead();
     return super.contextHandler;
   }
 
   @override
-  set contextHandler(ContextHandler<dynamic> value) {
+  set contextHandler(ContextHandler<dynamic>? value) {
     _$contextHandlerAtom.reportWrite(value, super.contextHandler, () {
       super.contextHandler = value;
     });
@@ -58,13 +58,13 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
       Atom(name: '_BaseViewmodelBase.connectionError');
 
   @override
-  String get connectionError {
+  String? get connectionError {
     _$connectionErrorAtom.reportRead();
     return super.connectionError;
   }
 
   @override
-  set connectionError(String value) {
+  set connectionError(String? value) {
     _$connectionErrorAtom.reportWrite(value, super.connectionError, () {
       super.connectionError = value;
     });
@@ -83,7 +83,7 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
       ActionController(name: '_BaseViewmodelBase');
 
   @override
-  void navigate({@required NavOrder<dynamic> order}) {
+  void navigate({required NavOrder<dynamic> order}) {
     final _$actionInfo = _$_BaseViewmodelBaseActionController.startAction(
         name: '_BaseViewmodelBase.navigate');
     try {
@@ -128,12 +128,12 @@ mixin _$BaseViewmodel on _BaseViewmodelBase, Store {
 
   @override
   void showSnack(String message,
-      {VoidCallback action,
+      {VoidCallback? action,
       Color backgroundColor = DARK_GREY,
       Color disabledTextColor = WHITE,
       Color textColor = WHITE,
       Duration duration = const Duration(minutes: 10),
-      GlobalKey<ScaffoldState> scaffoldKey}) {
+      GlobalKey<ScaffoldState>? scaffoldKey}) {
     final _$actionInfo = _$_BaseViewmodelBaseActionController.startAction(
         name: '_BaseViewmodelBase.showSnack');
     try {

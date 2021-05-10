@@ -10,7 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'dart:ui' as ui;
 
-String dateFormatter(String dateStr, AppLocalizations localizations) {
+String? dateFormatter(String dateStr, AppLocalizations localizations) {
   if (dateStr == null || dateStr.isEmpty) return '';
   final date = DateTime.parse(dateStr);
   final diff = DateTime.now().difference(date);
@@ -36,9 +36,9 @@ String durationToFormattedTime(Duration time, Locale locale) {
   return formattedTime;
 }
 
-bool isArabic({BuildContext context, AppLocalizations localizations}) {
+bool isArabic({BuildContext? context, AppLocalizations? localizations}) {
   assert(context != null || localizations != null);
-  return (localizations ?? AppLocalizations.of(context)).locale.languageCode == LANGUAGE_ARABIC;
+  return (localizations ?? AppLocalizations.of(context!))!.locale.languageCode == LANGUAGE_ARABIC;
 }
 
 Future<BitmapDescriptor> getMapMarker(String assetPath) async {
@@ -71,7 +71,7 @@ Future<BitmapDescriptor> getMarkerIconWithTitle(ui.Image image) async {
   final ui.Image markerAsImage = await pictureRecorder.endRecording().toImage(size.width.toInt(), size.height.toInt());
 
   // Convert image to bytes
-  final ByteData byteData = await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
+  final ByteData byteData = await (markerAsImage.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
   final Uint8List uint8List = byteData.buffer.asUint8List();
 
   return BitmapDescriptor.fromBytes(uint8List);

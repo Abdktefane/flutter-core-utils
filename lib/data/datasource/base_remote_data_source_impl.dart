@@ -6,38 +6,36 @@ import 'package:core_sdk/utils/Fimber/Logger.dart';
 import 'package:core_sdk/utils/constants.dart';
 import 'package:core_sdk/utils/dio/token_option.dart';
 import 'package:core_sdk/utils/network_result.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import 'base_remote_data_source.dart';
 
 abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
   final Dio client;
-  final DataConnectionChecker connectionChecker;
+  // final DataConnectionChecker connectionChecker;
   final Logger logger;
 
   BaseRemoteDataSourceImpl({
-    @required this.client,
-    @required this.connectionChecker,
-    @required this.logger,
+    required this.client,
+    // @required this.connectionChecker,
+    required this.logger,
   });
 
-  Future<NetworkResult<T>> request<T>({
-    @required METHOD method,
-    @required String endpoint,
+  Future<NetworkResult<T?>> request<T>({
+    required METHOD method,
+    required String endpoint,
     data,
-    int siteId,
-    Map<String, dynamic> params,
-    Map<String, dynamic> headers,
-    Mapper<T> mapper,
-    String messageErrorKey = 'msg_something_wrong',
+    int? siteId,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+    Mapper<T>? mapper,
+    String? messageErrorKey = 'msg_something_wrong',
     // String messageErrorKey,
     bool withAuth = true,
     bool wrapData = true,
   }) async {
-    return await _checkNetwork<T>(() async {
-      Response response;
+    return await _checkNetwork<T?>(() async {
+      late Response response;
       dynamic jsonResponse;
       try {
         Options options = withAuth ? TokenOption.toOptions().copyWith(headers: headers) : Options(headers: headers);
@@ -82,14 +80,14 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         jsonResponse = jsonDecode(response.data);
         print("my debug res is $jsonResponse");
         if (jsonResponse is! Map && mapper == null) {
-          return Success(jsonResponse as T);
+          return Success(jsonResponse as T?);
         }
 
         if (mapper == null) {
-          return Success<T>(null);
+          return Success<T?>(null);
         }
 
-        if (jsonResponse['message'] != null && (jsonResponse['status'] as int) != 200)
+        if (jsonResponse['message'] != null && (jsonResponse['status'] as int?) != 200)
           throw ServerException(messageErrorKey ?? jsonResponse['message'] ?? 'msg_something_wrong');
         // throw ServerException(jsonResponse['message'] ?? messageErrorKey);
         final value = mapper(jsonResponse);
@@ -107,7 +105,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
               'BaseDataSourceWithMapperImpl FINAL CATCH ERROR => request<$T> => ERROR = e:$e \n $response \n $jsonResponse');
           return e is ServerException
               ? NetworkError(ServerFailure(e.message))
-              : NetworkError(ServerFailure(e?.message ?? messageErrorKey));
+              : NetworkError(ServerFailure(e.message ?? messageErrorKey));
         }
       }
     });
@@ -116,14 +114,14 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
   Future<NetworkResult<T>> _checkNetwork<T>(
     Future<NetworkResult<T>> Function() body,
   ) async {
-    return await connectionChecker.hasConnection ? await body() : NetworkError(NetworkFailure('msg_no_internet'));
+    return body();
   }
 
   @override
   Future<Response> performGetRequest({
-    @required String endpoint,
-    Map<String, dynamic> params,
-    Options options,
+    required String endpoint,
+    Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       var response = await client.get(
@@ -147,10 +145,10 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
 
   @override
   Future<Response> performPostRequest({
-    @required String endpoint,
-    @required data,
-    Map<String, dynamic> params,
-    Options options,
+    required String endpoint,
+    required data,
+    Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       final response = await client.post(
@@ -174,10 +172,10 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
 
   @override
   Future<Response> performPutRequest({
-    @required String endpoint,
-    @required data,
-    Map<String, dynamic> params,
-    Options options,
+    required String endpoint,
+    required data,
+    Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       final response = await client.put(
@@ -201,10 +199,10 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
 
   @override
   Future<Response> performDeleteRequest({
-    @required String endpoint,
+    required String endpoint,
     data,
-    Map<String, dynamic> params,
-    Options options,
+    Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       final response = await client.delete(

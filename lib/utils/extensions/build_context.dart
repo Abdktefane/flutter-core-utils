@@ -19,8 +19,8 @@ extension BuildContextExtension on BuildContext {
   TextTheme get textTheme => theme.textTheme;
 
   //* Locale stuff *//
-  AppLocalizations get locale => AppLocalizations.of(this);
-  String translate(String key) => locale.translate(key) ?? key;
+  AppLocalizations? get locale => AppLocalizations.of(this);
+  String translate(String key) => locale!.translate(key) ?? key;
 
   //* Media query stuff *//
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -32,25 +32,25 @@ extension BuildContextExtension on BuildContext {
 
   //* Navigate stuff *//
   NavigatorState get navigator => Navigator.of(this);
-  void pop<T extends Object>([T result]) => navigator.pop<T>(result);
+  void pop<T extends Object>([T? result]) => navigator.pop<T>(result);
 
   void popUntil({numberOfPages = 1}) {
     int count = 0;
     navigator.popUntil((_) => count++ == numberOfPages);
   }
 
-  Future<T> pushNamed<T extends Object>(
+  Future<T?> pushNamed<T extends Object>(
     String routeName, {
-    Object arguments,
+    Object? arguments,
   }) =>
       navigator.pushNamed<T>(routeName, arguments: arguments);
 
-  Future<T> pushPage<T extends Object>(Widget widget) => navigator.push<T>(MaterialPageRoute(builder: (_) => widget));
+  Future<T?> pushPage<T extends Object>(Widget widget) => navigator.push<T>(MaterialPageRoute(builder: (_) => widget));
 
-  Future<T> cupertinoPushPage<T extends Object>(Widget widget) =>
+  Future<T?> cupertinoPushPage<T extends Object>(Widget widget) =>
       navigator.push<T>(CupertinoPageRoute(builder: (_) => widget));
 
-  Future<R> pushPageWithMobx<T extends BaseViewmodel, R>(
+  Future<R?> pushPageWithMobx<T extends BaseViewmodel, R>(
     T mobx,
     Widget widget, {
     bool automaticDispose = false,
@@ -65,10 +65,10 @@ extension BuildContextExtension on BuildContext {
         ),
       );
 
-  Future<T> pushNamedAndRemoveUntil<T extends Object>(
+  Future<T?> pushNamedAndRemoveUntil<T extends Object>(
     String newRouteName,
     RoutePredicate predicate, {
-    Object arguments,
+    Object? arguments,
   }) =>
       navigator.pushNamedAndRemoveUntil<T>(
         newRouteName,
@@ -76,6 +76,6 @@ extension BuildContextExtension on BuildContext {
         arguments: arguments,
       );
 
-  bool get isRtl => rtlLanguages.contains(locale.locale.languageCode);
+  bool get isRtl => rtlLanguages.contains(locale!.locale.languageCode);
   bool get isLtr => !isRtl;
 }

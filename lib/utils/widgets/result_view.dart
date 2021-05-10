@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 
 class ResultView extends StatelessWidget {
   final String icon;
-  final String title;
-  final String resultTitle;
-  final String resultDescription;
-  final String primaryButtonTitle;
-  final String secondaryButtonTitle;
-  final VoidCallback onPrimaryButtonPressed;
-  final VoidCallback onSecondaryButtonPressed;
+  final String? title;
+  final String? resultTitle;
+  final String? resultDescription;
+  final String? primaryButtonTitle;
+  final String? secondaryButtonTitle;
+  final VoidCallback? onPrimaryButtonPressed;
+  final VoidCallback? onSecondaryButtonPressed;
   final bool showBackButton;
 
   ResultView({
-    @required this.icon,
+    required this.icon,
     this.title,
     this.resultTitle,
     this.resultDescription,
@@ -29,13 +29,13 @@ class ResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final containerSize = MediaQuery.of(context).orientation == Orientation.portrait
         ? MediaQuery.of(context).size.width * 0.33
         : MediaQuery.of(context).size.height * 0.40;
     final textStyle = TextStyle(
       color: TEXT_COLOR,
-      fontFamily: Theme.of(context).textTheme.headline1.fontFamily,
+      fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
     );
 
     return Padding(

@@ -1,5 +1,5 @@
 class ServerException implements Exception {
-  final String message;
+  final String? message;
 
   ServerException(this.message);
 // You can add a message for example as follow:
@@ -9,4 +9,5 @@ class ServerException implements Exception {
 }
 
 class NetworkException implements Exception {}
+
 class CacheException implements Exception {}

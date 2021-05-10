@@ -16,7 +16,7 @@ showSnackBarMessage(
     new SnackBar(
       duration: duration,
       content: Text(
-        message ?? 'unknown',
+        message,
         style: TextStyle(
           fontSize: 16,
           color: Colors.white,
@@ -28,7 +28,7 @@ showSnackBarMessage(
   );
 }
 
-Future showMessageDialog(BuildContext context, String message, {Function onTap, bool dismissible = true}) async {
+Future showMessageDialog(BuildContext context, String message, {Function? onTap, bool dismissible = true}) async {
   await showDialog(
     context: context,
     barrierDismissible: dismissible,
@@ -37,7 +37,7 @@ Future showMessageDialog(BuildContext context, String message, {Function onTap, 
         content: Text(message),
         actions: [
           FlatButton(
-            child: Text(AppLocalizations.of(context).translate('lbl_ok')),
+            child: Text(AppLocalizations.of(context)!.translate('lbl_ok')!),
             onPressed: () {
               Navigator.pop(context);
               if (onTap != null) onTap();
@@ -52,7 +52,7 @@ Future showMessageDialog(BuildContext context, String message, {Function onTap, 
 Future showStatusDialog(
   BuildContext context,
   String message, {
-  Function onTap,
+  Function? onTap,
   bool isSuccess = true,
   bool dismissible = true,
   Color successIconColor = PURPLE,
@@ -89,9 +89,9 @@ Future showStatusDialog(
               ),
               SizedBox(height: 8.0),
               Text(
-                context.translate(message) ?? message,
+                context.translate(message),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 16),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
               ),
               SizedBox(height: 24.0),
               SubmitButton(
@@ -114,9 +114,9 @@ Future<void> showConfirmDialog(
   BuildContext context,
   String message,
   Function onConfirm, {
-  TextStyle textStyle,
-  TextStyle cancelButtonStyle,
-  TextStyle confirmButtonStyle,
+  TextStyle? textStyle,
+  TextStyle? cancelButtonStyle,
+  TextStyle? confirmButtonStyle,
 }) async {
   await showDialog(
     context: context,
@@ -133,7 +133,7 @@ Future<void> showConfirmDialog(
         actions: [
           FlatButton(
             child: Text(
-              AppLocalizations.of(context).translate('lbl_cancel'),
+              AppLocalizations.of(context)!.translate('lbl_cancel')!,
               style: cancelButtonStyle ??
                   TextStyle(
                     color: GREY,
@@ -147,7 +147,7 @@ Future<void> showConfirmDialog(
           ),
           FlatButton(
             child: Text(
-              AppLocalizations.of(context).translate('lbl_ok'),
+              AppLocalizations.of(context)!.translate('lbl_ok')!,
               style: confirmButtonStyle ??
                   TextStyle(
                     color: PURPLE,

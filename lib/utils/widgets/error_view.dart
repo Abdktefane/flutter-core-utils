@@ -8,8 +8,8 @@ class ErrorView extends StatelessWidget {
   final VoidCallback onRetry;
 
   ErrorView({
-    @required this.errorMessage,
-    @required this.onRetry,
+    required this.errorMessage,
+    required this.onRetry,
   });
 
   @override
@@ -22,13 +22,13 @@ class ErrorView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              context.translate(errorMessage) ?? errorMessage,
+              context.translate(errorMessage),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: DARK_GREY,
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                fontFamily: Theme.of(context).textTheme.headline1.fontFamily,
+                fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
               ),
             ),
             SizedBox(height: 8.0),
@@ -48,7 +48,7 @@ class ErrorView extends StatelessWidget {
                       color: WHITE,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      fontFamily: Theme.of(context).textTheme.headline1.fontFamily,
+                      fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
                     ),
                   ),
                   SizedBox(width: 8.0),

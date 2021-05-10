@@ -8,9 +8,9 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T> with SideEffectMinxin {
-  V viewmodel;
-  ThemeData theme;
-  TextTheme textTheme;
+  V? viewmodel;
+  late ThemeData theme;
+  TextTheme? textTheme;
   @override
   void initState() {
     super.initState();
@@ -49,9 +49,9 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
 
 abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T>
     with SideEffectMinxin {
-  V viewmodel;
-  ThemeData theme;
-  TextTheme textTheme;
+  V? viewmodel;
+  late ThemeData theme;
+  TextTheme? textTheme;
   @override
   void initState() {
     super.initState();

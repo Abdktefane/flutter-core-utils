@@ -4,10 +4,10 @@ const Duration _kExpand = Duration(milliseconds: 200);
 
 class ExpansionBar extends StatefulWidget {
   const ExpansionBar({
-    Key key,
+    Key? key,
     this.headerBackgroundColor,
     this.leading,
-    @required this.title,
+    required this.title,
     this.backgroundColor,
     this.iconColor,
     this.onExpansionChanged,
@@ -19,23 +19,23 @@ class ExpansionBar extends StatefulWidget {
   })  : assert(initiallyExpanded != null),
         super(key: key);
 
-  final Widget leading;
+  final Widget? leading;
 
   final Widget title;
 
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
 
   final List<Widget> children;
 
-  final Widget child;
+  final Widget? child;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
-  final Color headerBackgroundColor;
+  final Color? headerBackgroundColor;
 
-  final Color iconColor;
+  final Color? iconColor;
 
-  final Widget trailing;
+  final Widget? trailing;
 
   final bool initiallyExpanded;
 
@@ -55,13 +55,13 @@ class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderSta
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  AnimationController _controller;
-  Animation<double> _iconTurns;
-  Animation<double> _heightFactor;
-  Animation<Color> _borderColor;
-  Animation<Color> _headerColor;
-  Animation<Color> _iconColor;
-  Animation<Color> _backgroundColor;
+  late AnimationController _controller;
+  late Animation<double> _iconTurns;
+  late Animation<double> _heightFactor;
+  late Animation<Color?> _borderColor;
+  late Animation<Color?> _headerColor;
+  late Animation<Color?> _iconColor;
+  late Animation<Color?> _backgroundColor;
 
   bool _isExpanded = false;
 
@@ -113,7 +113,7 @@ class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderSta
         PageStorage.of(context)?.writeState(context, _isExpanded);
       });
       if (widget.onExpansionChanged != null) {
-        widget.onExpansionChanged(_isExpanded);
+        widget.onExpansionChanged!(_isExpanded);
       }
     }
   }
@@ -135,13 +135,13 @@ class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderSta
         }
         PageStorage.of(context)?.writeState(context, _isExpanded);
       });
-      if (widget.onExpansionChanged != null) widget.onExpansionChanged(_isExpanded);
+      if (widget.onExpansionChanged != null) widget.onExpansionChanged!(_isExpanded);
     }
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     final Color borderSideColor = _borderColor.value ?? Colors.transparent;
-    final Color titleColor = _headerColor.value;
+    final Color? titleColor = _headerColor.value;
 
     return Container(
       decoration: BoxDecoration(
@@ -161,7 +161,7 @@ class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderSta
                 onTap: _handleTap,
                 leading: widget.leading,
                 title: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.subtitle1.copyWith(color: titleColor),
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(color: titleColor),
                   child: widget.title,
                 ),
                 trailing: widget.trailing ??
@@ -191,7 +191,7 @@ class ExpansionBarState extends State<ExpansionBar> with SingleTickerProviderSta
     final ThemeData theme = Theme.of(context);
     _borderColorTween..end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subtitle1.color
+      ..begin = theme.textTheme.subtitle1!.color
       ..end = theme.accentColor;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor

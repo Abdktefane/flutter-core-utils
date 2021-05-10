@@ -4,9 +4,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 class MobxLoadingPage<T extends BaseViewmodel> extends StatelessWidget {
   const MobxLoadingPage({
-    Key key,
-    @required this.viewmodel,
-    @required this.child,
+    Key? key,
+    required this.viewmodel,
+    required this.child,
     this.loadingWidget = const Center(child: CircularProgressIndicator()),
     this.barrierColor = const Color(0xFFc7c7c7),
     this.animationDuration = const Duration(milliseconds: 400),

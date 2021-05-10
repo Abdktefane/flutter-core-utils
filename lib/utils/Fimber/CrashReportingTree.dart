@@ -12,7 +12,7 @@ class CrashReportingTree extends LogTree {
 
   @override
   void log(String level, String message,
-      {String tag, dynamic ex, StackTrace stacktrace}) {
+      {String? tag, dynamic ex, StackTrace? stacktrace}) {
     // ignore: todo
     // TODO add crashlytics here
     /* final crashlytics = Crashlytics.instance;

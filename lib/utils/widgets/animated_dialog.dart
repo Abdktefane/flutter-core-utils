@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //PS: to use this Dialog without exception the child should define width and height
 class AnimatedDialog extends StatelessWidget {
   const AnimatedDialog({
-    Key key,
-    @required this.title,
-    @required this.child,
+    Key? key,
+    required this.title,
+    required this.child,
     this.borderRadius = 15,
     this.elevation = 20,
   }) : super(key: key);
@@ -49,12 +49,12 @@ class AnimatedDialog extends StatelessWidget {
     );
   }
 
-  static Future<R> show<R, T extends Cubit<Object>>(
+  static Future<R?> show<R, T extends Cubit<Object>>(
     BuildContext context, {
-    T bloc,
-    Key key,
-    @required String title,
-    @required Widget child,
+    T? bloc,
+    Key? key,
+    required String title,
+    required Widget child,
     double borderRadius = 15,
     double elevation = 20,
   }) async {

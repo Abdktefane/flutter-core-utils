@@ -31,7 +31,7 @@ class LocationsHelper {
     return false;
   }
 
-  Future<LocationData> getLocation() async =>
+  Future<LocationData?> getLocation() async =>
       (await requestPermission() && await enableService()) ? location.getLocation() : null;
 }
 

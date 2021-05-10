@@ -20,7 +20,7 @@ mixin SideEffectMinxin<T extends StatefulWidget> on State<T> {
     addSideEffect(
       reaction(
         (_) => viewmodel.navigator,
-        (NavOrder order) {
+        (NavOrder? order) {
           if (order is Pop) return context.pop(order.data);
           if (order is PushPage) {
             context.pushPage(order.child);
@@ -31,14 +31,14 @@ mixin SideEffectMinxin<T extends StatefulWidget> on State<T> {
     );
   }
 
-  void addContextHandlerDisposer(BaseViewmodel viewmodel) {
+  void addContextHandlerDisposer(BaseViewmodel? viewmodel) {
     addSideEffect(
       reaction(
-        (_) => viewmodel.contextHandler,
-        (ContextHandler handler) {
+        (_) => viewmodel!.contextHandler,
+        (ContextHandler? handler) {
           if (handler != null) {
             handler(context);
-            viewmodel.contextHandler = null;
+            viewmodel!.contextHandler = null;
           }
         },
       ),
@@ -46,15 +46,15 @@ mixin SideEffectMinxin<T extends StatefulWidget> on State<T> {
   }
 
   void addConnectionErroHandlerDisposer(
-    BaseViewmodel viewmodel, {
-    void Function(String) handler,
+    BaseViewmodel? viewmodel, {
+    void Function(String)? handler,
   }) {
     addSideEffect(
       reaction(
-        (_) => viewmodel.connectionError,
-        (String errorMessage) {
+        (_) => viewmodel!.connectionError,
+        (String? errorMessage) {
           if (errorMessage != null) {
-            handler(errorMessage);
+            handler!(errorMessage);
           }
         },
       ),

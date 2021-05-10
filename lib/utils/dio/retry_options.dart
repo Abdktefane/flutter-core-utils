@@ -8,7 +8,7 @@ class RetryOptions {
   /// The number of current retry
   const RetryOptions({
     this.maxAttempts = 3,
-    RetryEvaluator retryEvaluator,
+    RetryEvaluator? retryEvaluator,
     this.delayInterval = const Duration(milliseconds: 100),
     this.attempt = 1,
   }) : _retryEvaluator = retryEvaluator;
@@ -39,7 +39,7 @@ class RetryOptions {
   /// Defaults to [defaultRetryEvaluator].
   RetryEvaluator get retryEvaluator => _retryEvaluator ?? defaultRetryEvaluator;
 
-  final RetryEvaluator _retryEvaluator;
+  final RetryEvaluator? _retryEvaluator;
 
   static const String extraKey = 'cache_retry_request';
 
@@ -50,9 +50,9 @@ class RetryOptions {
   }
 
   RetryOptions copyWith({
-    int maxAttempts,
-    Duration delayInterval,
-    int attempt,
+    int? maxAttempts,
+    Duration? delayInterval,
+    int? attempt,
   }) =>
       RetryOptions(
         maxAttempts: maxAttempts ?? this.maxAttempts,

@@ -6,15 +6,15 @@ abstract class NetworkResult<T> {
   bool get isNetworkError => this is NetworkError || false;
 
   // ignore: always_specify_types
-  T getOrNull() => isSuccess ? (this as Success<T>).data : null;
+  T? getOrNull() => isSuccess ? (this as Success<T>).data : null;
 
   //FIXME not working with test
-  T getOrThrow() => isSuccess ? (this as Success<T>).data : throw getException();
+  T getOrThrow() => isSuccess ? (this as Success<T>).data : throw getException()!;
 
   Failure getFailure() => (this as NetworkError<T>).cause;
 
-  CallException getException() {
-    CallException ex;
+  CallException? getException() {
+    CallException? ex;
     if (isNetworkFailure) {
       ex = CallException((this as NetworkError<T>).cause);
     }

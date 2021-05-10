@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../colors.dart';
 
 class BottomSheetHeader extends StatelessWidget {
-  const BottomSheetHeader({Key key, this.color = LIGHT_GREY}) : super(key: key);
+  const BottomSheetHeader({Key? key, this.color = LIGHT_GREY}) : super(key: key);
 
   final Color color;
 

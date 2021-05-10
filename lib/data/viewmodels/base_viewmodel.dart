@@ -29,16 +29,16 @@ abstract class _BaseViewmodelBase with Store {
   bool isLoading = false;
 
   @observable
-  NavOrder navigator;
+  NavOrder? navigator;
 
   @observable
-  ContextHandler contextHandler;
+  ContextHandler? contextHandler;
 
   @observable
-  String connectionError;
+  String? connectionError;
 
   @action
-  void navigate({@required NavOrder order}) {
+  void navigate({required NavOrder order}) {
     navigator = order;
   }
 
@@ -71,14 +71,14 @@ abstract class _BaseViewmodelBase with Store {
   @action
   void showSnack(
     String message, {
-    VoidCallback action,
+    VoidCallback? action,
     Color backgroundColor = DARK_GREY,
     Color disabledTextColor = WHITE,
     Color textColor = WHITE,
     Duration duration = const Duration(minutes: 10),
-    GlobalKey<ScaffoldState> scaffoldKey,
+    GlobalKey<ScaffoldState>? scaffoldKey,
   }) {
-    (scaffoldKey ?? this.scaffoldKey).currentState.showSnackBar(snackBarWidget(
+    (scaffoldKey ?? this.scaffoldKey).currentState!.showSnackBar(snackBarWidget(
           message,
           action: action,
           backgroundColor: backgroundColor,
@@ -90,7 +90,7 @@ abstract class _BaseViewmodelBase with Store {
 
   SnackBar snackBarWidget(
     String message, {
-    VoidCallback action,
+    VoidCallback? action,
     Color backgroundColor = DARK_GREY,
     Color disabledTextColor = WHITE,
     Color textColor = WHITE,
@@ -107,7 +107,7 @@ abstract class _BaseViewmodelBase with Store {
             )
           : null,
       content: Text(
-        message ?? 'unknown',
+        message,
         style: TextStyle(
           fontSize: 16,
           color: Colors.white,
@@ -135,8 +135,8 @@ abstract class _BaseViewmodelBase with Store {
   @protected
   ObservableFuture<T> futureWrapper<T>(
     Future<T> Function() block, {
-    void Function(String) catchBlock,
-    void Function(dynamic cause) unknownErrorHandler,
+    void Function(String?)? catchBlock,
+    void Function(dynamic cause)? unknownErrorHandler,
     bool useLoader = false,
   }) {
     connectionError = null;
@@ -156,8 +156,8 @@ abstract class _BaseViewmodelBase with Store {
 
   Future<T> _wrapError<T>(
     Future<T> future, {
-    void Function(String) block,
-    void Function(dynamic cause) unknownErrorHandler,
+    void Function(String?)? block,
+    void Function(dynamic cause)? unknownErrorHandler,
   }) =>
       future.catchError((error) {
         if (error is CallException && error.cause is NetworkFailure) {
@@ -165,7 +165,7 @@ abstract class _BaseViewmodelBase with Store {
           connectionError = 'msg_no_internet';
         } else if (error is CallException && error.cause is ServerFailure) {
           logger.e('ServerFailure in base view model ${error.cause.message}');
-          block(error.cause.message);
+          block!(error.cause.message);
         } else {
           logger.e('unknown error in base view model $error');
           unknownErrorHandler != null ? unknownErrorHandler(error) : this.unknownErrorHandler(error);
@@ -173,7 +173,9 @@ abstract class _BaseViewmodelBase with Store {
         throw error;
       });
 
-  Future<void> dispose() {}
+  Future<void> dispose() {
+    return Future.value();
+  }
 
   //  async {
   //   await cancelSubscription();

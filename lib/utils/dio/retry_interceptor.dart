@@ -7,9 +7,9 @@ import 'retry_options.dart';
 /// An interceptor that will try to send failed request again
 class RetryInterceptor extends Interceptor {
   RetryInterceptor({
-    @required this.dio,
-    @required this.logger,
-    RetryOptions options,
+    required this.dio,
+    required this.logger,
+    RetryOptions? options,
   }) : options = options ?? const RetryOptions();
 
   final Dio dio;
@@ -18,7 +18,8 @@ class RetryInterceptor extends Interceptor {
 
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
-    RetryOptions extra = RetryOptions.fromExtra(err.requestOptions) ?? options;
+    // RetryOptions extra = RetryOptions.fromExtra(err.requestOptions) ?? options;
+    RetryOptions extra = RetryOptions.fromExtra(err.requestOptions);
 
     final bool shouldRetry = extra.attempt <= extra.maxAttempts && await options.retryEvaluator(err);
 

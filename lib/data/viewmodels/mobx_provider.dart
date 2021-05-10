@@ -4,15 +4,15 @@ import 'package:get_it/get_it.dart';
 
 class MobxProvider<T extends BaseViewmodel> extends StatefulWidget {
   MobxProvider({
-    Key key,
+    Key? key,
     this.viewmodel,
     this.automaticDispose = true,
-    @required this.child,
+    required this.child,
   })  : assert(child != null),
         super(key: key);
 
   final Widget child;
-  final T viewmodel;
+  final T? viewmodel;
   final bool automaticDispose;
 
   @override
@@ -20,8 +20,8 @@ class MobxProvider<T extends BaseViewmodel> extends StatefulWidget {
 }
 
 class _MobxProviderState<T extends BaseViewmodel> extends State<MobxProvider<T>> {
-  T viewmodel;
-  bool automaticDispose;
+  T? viewmodel;
+  late bool automaticDispose;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _MobxProviderState<T extends BaseViewmodel> extends State<MobxProvider<T>>
   @override
   void dispose() {
     if (automaticDispose) {
-      viewmodel.dispose();
+      viewmodel!.dispose();
     }
     super.dispose();
   }
@@ -49,14 +49,14 @@ class _MobxProviderState<T extends BaseViewmodel> extends State<MobxProvider<T>>
 
 class InheritedMobxWidget<T extends BaseViewmodel> extends InheritedWidget {
   InheritedMobxWidget({
-    Key key,
+    Key? key,
     this.viewmodel,
-    @required this.child,
+    required this.child,
   })  : assert(child != null),
         super(key: key, child: child);
 
   final Widget child;
-  final T viewmodel;
+  final T? viewmodel;
 
   static T of<T extends BaseViewmodel>(BuildContext context) {
     final viewmodel = context.dependOnInheritedWidgetOfExactType<InheritedMobxWidget<T>>()?.viewmodel;

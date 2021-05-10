@@ -12,7 +12,7 @@ class Pop<T> extends NavOrder<T> {
 }
 
 class PushPage<T> extends NavOrder<T> {
-  const PushPage(T data, {@required this.child}) : super(data);
+  const PushPage(T data, {required this.child}) : super(data);
 
   final Widget child;
 }

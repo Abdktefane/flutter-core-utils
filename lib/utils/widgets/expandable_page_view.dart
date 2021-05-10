@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 
 class ExpandablePageView extends StatefulWidget {
   const ExpandablePageView({
-    Key key,
-    @required this.children,
+    Key? key,
+    required this.children,
     this.physics,
     this.controller,
   }) : super(key: key);
@@ -23,13 +23,13 @@ class ExpandablePageView extends StatefulWidget {
   _ExpandablePageViewState createState() => _ExpandablePageViewState();
 
   final List<Widget> children;
-  final ScrollPhysics physics;
-  final PageController controller;
+  final ScrollPhysics? physics;
+  final PageController? controller;
 }
 
 class _ExpandablePageViewState extends State<ExpandablePageView> with TickerProviderStateMixin {
-  PageController _pageController;
-  List<double> _heights;
+  PageController? _pageController;
+  late List<double> _heights;
   int _currentPage = 0;
 
   double get _currentHeight => _heights[_currentPage];
@@ -47,8 +47,8 @@ class _ExpandablePageViewState extends State<ExpandablePageView> with TickerProv
         }
       }); */
 
-    _pageController.addListener(() {
-      final _newPage = _pageController.page.round();
+    _pageController!.addListener(() {
+      final _newPage = _pageController!.page!.round();
       if (_currentPage != _newPage) {
         if (mounted) {
           setState(() => _currentPage = _newPage);
@@ -100,12 +100,12 @@ class _ExpandablePageViewState extends State<ExpandablePageView> with TickerProv
 
 class SizeReportingWidget extends StatefulWidget {
   final Widget child;
-  final ValueChanged<Size> onSizeChange;
+  final ValueChanged<Size?> onSizeChange;
 
   const SizeReportingWidget({
-    Key key,
-    @required this.child,
-    @required this.onSizeChange,
+    Key? key,
+    required this.child,
+    required this.onSizeChange,
   }) : super(key: key);
 
   @override
@@ -113,16 +113,16 @@ class SizeReportingWidget extends StatefulWidget {
 }
 
 class _SizeReportingWidgetState extends State<SizeReportingWidget> {
-  Size _oldSize;
+  Size? _oldSize;
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _notifySize());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _notifySize());
     return widget.child;
   }
 
   void _notifySize() {
-    final size = context?.size;
+    final size = context.size;
     if (_oldSize != size) {
       _oldSize = size;
       widget.onSizeChange(size);

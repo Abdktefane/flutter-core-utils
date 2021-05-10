@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class PaginationList<T> extends StatelessWidget {
   const PaginationList({
-    Key key,
-    @required this.dataList,
-    @required this.cardBuilder,
-    @required this.canLoadMore,
-    @required this.scrollController,
-    @required this.emptyWidget,
+    Key? key,
+    required this.dataList,
+    required this.cardBuilder,
+    required this.canLoadMore,
+    required this.scrollController,
+    required this.emptyWidget,
     this.padding = 0,
     this.shrinkWrap = true,
     this.physics = const BouncingScrollPhysics(),
@@ -22,7 +22,7 @@ class PaginationList<T> extends StatelessWidget {
   final bool canLoadMore;
   final ScrollController scrollController;
   final Widget loadingWidget;
-  final Widget emptyWidget;
+  final Widget? emptyWidget;
   final double padding;
 
   @override

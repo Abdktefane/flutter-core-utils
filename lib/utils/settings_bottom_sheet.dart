@@ -10,14 +10,14 @@ class SettingOption {
   final VoidCallback onTap;
 
   SettingOption({
-    @required this.icon,
-    @required this.title,
-    @required this.onTap,
+    required this.icon,
+    required this.title,
+    required this.onTap,
     this.description = '',
   });
 }
 
-void showSettingBottomSheet(context, {@required List<SettingOption> options}) {
+void showSettingBottomSheet(context, {required List<SettingOption> options}) {
   final titleStyle = TextStyle(
     fontSize: 16,
     color: TEXT_COLOR,

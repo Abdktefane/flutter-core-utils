@@ -49,9 +49,9 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
 
 abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T>
     with SideEffectMinxin {
-  V? viewmodel;
-  late ThemeData theme;
-  TextTheme? textTheme;
+  late final V viewmodel;
+  late final ThemeData theme;
+  late final TextTheme textTheme;
   @override
   void initState() {
     super.initState();
@@ -70,7 +70,7 @@ abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmod
   @override
   void dispose() {
     disposeSideEffects();
-    viewmodel?.dispose();
+    viewmodel.dispose();
     super.dispose();
   }
 

@@ -40,7 +40,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
       Response response;
       dynamic jsonResponse;
       try {
-        Options options = withAuth ? TokenOption.toOptions().merge(headers: headers) : Options(headers: headers);
+        Options options = withAuth ? TokenOption.toOptions().copyWith(headers: headers) : Options(headers: headers);
         print('data = $data');
         print('endpoint = $endpoint');
 

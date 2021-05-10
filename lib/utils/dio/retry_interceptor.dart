@@ -17,17 +17,15 @@ class RetryInterceptor extends Interceptor {
   final RetryOptions options;
 
   @override
-  Future onError(DioError err) async {
-    RetryOptions extra = RetryOptions.fromExtra(err.request) ?? options;
+  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+    RetryOptions extra = RetryOptions.fromExtra(err.requestOptions) ?? options;
 
-    final bool shouldRetry =
-        extra.attempt <= extra.maxAttempts && await options.retryEvaluator(err);
+    final bool shouldRetry = extra.attempt <= extra.maxAttempts && await options.retryEvaluator(err);
 
     if (!shouldRetry) {
-      return super.onError(err);
+      return super.onError(err, handler);
     }
-    final int nextDelay =
-        extra.attempt * extra.attempt * extra.delayInterval.inMilliseconds;
+    final int nextDelay = extra.attempt * extra.attempt * extra.delayInterval.inMilliseconds;
 
     if (nextDelay > 0) {
       await Future<void>.delayed(Duration(milliseconds: nextDelay));
@@ -35,19 +33,19 @@ class RetryInterceptor extends Interceptor {
 
     // Update options to decrease retry count before new try
     logger.w(
-        'schedule try for [${err.request.uri}] (current attempt: ${extra.attempt}, delayTime: $nextDelay, maxAttempts: ${extra.maxAttempts}, remaining tries: ${extra.maxAttempts - extra.attempt}, error: ${err.error})');
+        'schedule try for [${err.requestOptions.uri}] (current attempt: ${extra.attempt}, delayTime: $nextDelay, maxAttempts: ${extra.maxAttempts}, remaining tries: ${extra.maxAttempts - extra.attempt}, error: ${err.error})');
     extra = extra.copyWith(attempt: extra.attempt + 1);
-    err.request.extra = err.request.extra..addAll(extra.toExtra());
+    err.requestOptions.extra = err.requestOptions.extra..addAll(extra.toExtra());
     try {
       // We retry with the updated options
       return await dio.request /* <Map<String, dynamic>> */ (
-        err.request.path,
-        data: err.request.data,
-        queryParameters: err.request.queryParameters,
-        cancelToken: err.request.cancelToken,
-        options: err.request,
-        onSendProgress: err.request.onSendProgress,
-        onReceiveProgress: err.request.onReceiveProgress,
+        err.requestOptions.path,
+        data: err.requestOptions.data,
+        queryParameters: err.requestOptions.queryParameters,
+        cancelToken: err.requestOptions.cancelToken,
+        // options: err.requestOptions.,
+        onSendProgress: err.requestOptions.onSendProgress,
+        onReceiveProgress: err.requestOptions.onReceiveProgress,
       );
     } catch (e) {
       return e;

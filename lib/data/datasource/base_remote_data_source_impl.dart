@@ -28,7 +28,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
     int? siteId,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
-    Mapper<T>? mapper,
+    Mapper<T?>? mapper,
     String? messageErrorKey = 'msg_something_wrong',
     // String messageErrorKey,
     bool withAuth = true,

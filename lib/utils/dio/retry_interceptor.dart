@@ -37,6 +37,22 @@ class RetryInterceptor extends Interceptor {
         'schedule try for [${err.requestOptions.uri}] (current attempt: ${extra.attempt}, delayTime: $nextDelay, maxAttempts: ${extra.maxAttempts}, remaining tries: ${extra.maxAttempts - extra.attempt}, error: ${err.error})');
     extra = extra.copyWith(attempt: extra.attempt + 1);
     err.requestOptions.extra = err.requestOptions.extra..addAll(extra.toExtra());
+    final Options testOptions = Options(
+      contentType: err.requestOptions.contentType,
+      extra: err.requestOptions.extra,
+      followRedirects: err.requestOptions.followRedirects,
+      headers: err.requestOptions.headers,
+      listFormat: err.requestOptions.listFormat,
+      maxRedirects: err.requestOptions.maxRedirects,
+      method: err.requestOptions.method,
+      receiveDataWhenStatusError: err.requestOptions.receiveDataWhenStatusError,
+      receiveTimeout: err.requestOptions.receiveTimeout,
+      requestEncoder: err.requestOptions.requestEncoder,
+      responseDecoder: err.requestOptions.responseDecoder,
+      responseType: err.requestOptions.responseType,
+      sendTimeout: err.requestOptions.sendTimeout,
+      validateStatus: err.requestOptions.validateStatus,
+    );
     try {
       // We retry with the updated options
       return await dio.request /* <Map<String, dynamic>> */ (
@@ -45,6 +61,7 @@ class RetryInterceptor extends Interceptor {
         queryParameters: err.requestOptions.queryParameters,
         cancelToken: err.requestOptions.cancelToken,
         // options: err.requestOptions.,
+        options: testOptions,
         onSendProgress: err.requestOptions.onSendProgress,
         onReceiveProgress: err.requestOptions.onReceiveProgress,
       );

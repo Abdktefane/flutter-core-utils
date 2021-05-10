@@ -39,7 +39,7 @@ extension BuildContextExtension on BuildContext {
     navigator.popUntil((_) => count++ == numberOfPages);
   }
 
-  Future<T?> pushNamed<T extends Object>(
+  Future<T?> pushNamed<T extends Object?>(
     String routeName, {
     Object? arguments,
   }) =>

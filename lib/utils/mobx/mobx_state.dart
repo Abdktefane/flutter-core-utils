@@ -8,29 +8,29 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T> with SideEffectMinxin {
-  late final V viewmodel;
-  late final ThemeData theme;
-  late final textTheme;
+  V? viewmodel;
+  ThemeData? theme;
+  TextTheme? textTheme;
   @override
   void initState() {
     super.initState();
     viewmodel = GetIt.I<V>();
-    addContextHandlerDisposer(viewmodel);
+    addContextHandlerDisposer(viewmodel!);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // TODO(abd): check if this not make error or we should try to put it in initState()
-    addConnectionErroHandlerDisposer(viewmodel, handler: connectionErroHandler);
+    addConnectionErroHandlerDisposer(viewmodel!, handler: connectionErroHandler);
     theme = context.theme;
-    textTheme = theme.textTheme;
+    textTheme = theme?.textTheme;
   }
 
   @override
   void dispose() {
     disposeSideEffects();
-    viewmodel.dispose();
+    viewmodel?.dispose();
     super.dispose();
   }
 
@@ -49,9 +49,9 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
 
 abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T>
     with SideEffectMinxin {
-  late final V viewmodel;
-  late final ThemeData theme;
-  late final TextTheme textTheme;
+  V? viewmodel;
+  ThemeData? theme;
+  TextTheme? textTheme;
   @override
   void initState() {
     super.initState();
@@ -61,16 +61,16 @@ abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmod
   void didChangeDependencies() {
     super.didChangeDependencies();
     viewmodel = Provider.of<V>(context, listen: false);
-    addContextHandlerDisposer(viewmodel);
-    addConnectionErroHandlerDisposer(viewmodel, handler: connectionErroHandler);
+    addContextHandlerDisposer(viewmodel!);
+    addConnectionErroHandlerDisposer(viewmodel!, handler: connectionErroHandler);
     theme = context.theme;
-    textTheme = theme.textTheme;
+    textTheme = theme?.textTheme;
   }
 
   @override
   void dispose() {
     disposeSideEffects();
-    viewmodel.dispose();
+    viewmodel?.dispose();
     super.dispose();
   }
 

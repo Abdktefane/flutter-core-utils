@@ -60,7 +60,7 @@ abstract class ProviderMobxState<T extends StatefulWidget, V extends BaseViewmod
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewmodel = Provider.of<V?>(context, listen: false);
+    viewmodel = Provider.of<V>(context, listen: false);
     addContextHandlerDisposer(viewmodel!);
     addConnectionErroHandlerDisposer(viewmodel!, handler: connectionErroHandler);
     theme = context.theme;

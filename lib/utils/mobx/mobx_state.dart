@@ -8,21 +8,20 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> extends State<T> with SideEffectMinxin {
-  V? viewmodel;
+  final V viewmodel = GetIt.I<V>();
   ThemeData? theme;
   TextTheme? textTheme;
   @override
   void initState() {
     super.initState();
-    viewmodel = GetIt.I<V>();
-    addContextHandlerDisposer(viewmodel!);
+    addContextHandlerDisposer(viewmodel);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // TODO(abd): check if this not make error or we should try to put it in initState()
-    addConnectionErroHandlerDisposer(viewmodel!, handler: connectionErroHandler);
+    addConnectionErroHandlerDisposer(viewmodel, handler: connectionErroHandler);
     theme = context.theme;
     textTheme = theme?.textTheme;
   }
@@ -30,7 +29,7 @@ abstract class MobxState<T extends StatefulWidget, V extends BaseViewmodel> exte
   @override
   void dispose() {
     disposeSideEffects();
-    viewmodel?.dispose();
+    viewmodel.dispose();
     super.dispose();
   }
 

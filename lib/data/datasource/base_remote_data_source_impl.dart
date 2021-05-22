@@ -96,7 +96,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
       } catch (e) {
         //logger.e('my debug new error $response $jsonResponse');
         logger.e('BaseDataSourceWithMapperImpl => request<$T> => ERROR = $e');
-        logger.e('BaseDataSourceWithMapperImpl => ERROR: ${(e as ServerException).message}');
+        // logger.e('BaseDataSourceWithMapperImpl => ERROR: ${(e as? ServerException)?.message}');
         try {
           //return NetworkError(ServerFailure(response['message']));
           return NetworkError(ServerFailure(jsonResponse['message']));
@@ -105,7 +105,8 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
               'BaseDataSourceWithMapperImpl FINAL CATCH ERROR => request<$T> => ERROR = e:$e \n $response \n $jsonResponse');
           return e is ServerException
               ? NetworkError(ServerFailure(e.message))
-              : NetworkError(ServerFailure(e.message ?? messageErrorKey));
+              : NetworkError(ServerFailure(e is String ? e : messageErrorKey));
+          // : NetworkError(ServerFailure(e?.message ?? messageErrorKey));
         }
       }
     });

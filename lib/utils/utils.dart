@@ -41,7 +41,7 @@ bool isArabic({BuildContext? context, AppLocalizations? localizations}) {
   return (localizations ?? AppLocalizations.of(context!))!.locale.languageCode == LANGUAGE_ARABIC;
 }
 
-Future<BitmapDescriptor> getMapMarker(String assetPath) async {
+Future<BitmapDescriptor?> getMapMarker(String assetPath) async {
   final data = await rootBundle.load(assetPath);
   final list = Uint8List.view(data.buffer);
   final completer = Completer<ui.Image>();
@@ -49,7 +49,7 @@ Future<BitmapDescriptor> getMapMarker(String assetPath) async {
   return getMarkerIconWithTitle(await completer.future);
 }
 
-Future<BitmapDescriptor> getMarkerIconWithTitle(ui.Image image) async {
+Future<BitmapDescriptor?> getMarkerIconWithTitle(ui.Image image) async {
   final size = Size(400, 200);
   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
@@ -71,8 +71,9 @@ Future<BitmapDescriptor> getMarkerIconWithTitle(ui.Image image) async {
   final ui.Image markerAsImage = await pictureRecorder.endRecording().toImage(size.width.toInt(), size.height.toInt());
 
   // Convert image to bytes
-  final ByteData byteData = await (markerAsImage.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
-  final Uint8List uint8List = byteData.buffer.asUint8List();
+  final ByteData? byteData = await (markerAsImage.toByteData(format: ui.ImageByteFormat.png) as Future<ByteData?>);
+  final Uint8List? uint8List = byteData?.buffer.asUint8List();
+  if (uint8List == null) return null;
 
   return BitmapDescriptor.fromBytes(uint8List);
 }

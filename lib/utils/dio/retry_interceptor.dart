@@ -67,7 +67,7 @@ class RetryInterceptor extends Interceptor {
       );
       return handler.resolve(newResponse);
     } catch (e) {
-      return e;
+      return handler.next(err);
     }
   }
 }

@@ -20,7 +20,7 @@ extension BuildContextExtension on BuildContext {
 
   //* Locale stuff *//
   AppLocalizations? get locale => AppLocalizations.of(this);
-  String translate(String key) => locale!.translate(key) ?? key;
+  String translate(String? key) => locale?.translate(key) ?? key ?? '';
 
   //* Media query stuff *//
   MediaQueryData get mediaQuery => MediaQuery.of(this);

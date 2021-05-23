@@ -50,7 +50,7 @@ class ResultView extends StatelessWidget {
                 onPressed: () => context.pop(),
               ),
               title: Text(
-                localizations.translate(title) ?? '',
+                context.translate(title),
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -79,7 +79,7 @@ class ResultView extends StatelessWidget {
                   Visibility(
                     visible: resultTitle != null,
                     child: Text(
-                      localizations.translate(resultTitle).toString(),
+                      context.translate(resultTitle).toString(),
                       style: textStyle.copyWith(fontSize: 22),
                     ),
                   ),
@@ -89,7 +89,7 @@ class ResultView extends StatelessWidget {
                     child: Container(
                       //padding: EdgeInsets.only(left: 8.0),
                       child: Text(
-                        localizations.translate(resultDescription).toString(),
+                        context.translate(resultDescription).toString(),
                         style: textStyle.copyWith(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
@@ -104,7 +104,7 @@ class ResultView extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               child: SubmitButton(
-                title: localizations.translate(primaryButtonTitle).toString(),
+                title: context.translate(primaryButtonTitle),
                 onSubmit: onPrimaryButtonPressed,
                 borderRadius: 4.0,
                 width: 0.9,
@@ -116,7 +116,7 @@ class ResultView extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               child: SubmitButton(
-                title: localizations.translate(secondaryButtonTitle).toString(),
+                title: context.translate(secondaryButtonTitle),
                 onSubmit: onSecondaryButtonPressed,
                 borderRadius: 4.0,
                 width: 0.9,

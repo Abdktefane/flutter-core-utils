@@ -88,7 +88,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         }
 
         if (jsonResponse['message'] != null && (jsonResponse['status'] as int?) != 200)
-          throw ServerException(messageErrorKey ?? jsonResponse['message'] ?? 'msg_something_wrong');
+          throw ServerException(jsonResponse['message'] ?? 'msg_something_wrong');
         // throw ServerException(jsonResponse['message'] ?? messageErrorKey);
         final value = mapper(jsonResponse);
 

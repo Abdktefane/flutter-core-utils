@@ -12,7 +12,12 @@
 
 //   final ValueChanged<bool> onSwitch;
 
-//   SwitchButton({this.checked, this.checkedColor, this.unCheckedColor, this.onSwitch});
+//   SwitchButton({
+//     required this.checked,
+//     required this.checkedColor,
+//     required this.unCheckedColor,
+//     required this.onSwitch,
+//   });
 
 //   @override
 //   Widget build(BuildContext context) {

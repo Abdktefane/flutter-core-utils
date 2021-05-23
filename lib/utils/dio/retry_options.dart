@@ -19,9 +19,10 @@ class RetryOptions {
     );
   }
 
-  factory RetryOptions.fromExtra(RequestOptions request) {
+  static RetryOptions? fromExtra(RequestOptions request) {
     return request.extra[extraKey] as RetryOptions;
   }
+
   final int attempt;
 
   /// The number of maximum retry in case of an error

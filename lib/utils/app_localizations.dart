@@ -14,8 +14,8 @@ class AppLocalizations {
   static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-  _AppLocalizationsDelegate();
+
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   late Map<String, String> _localizedStrings;
 
@@ -34,13 +34,14 @@ class AppLocalizations {
 
   // This method will be called from every widget which needs a localized text
   String? translate(String? key) {
-    return _localizedStrings[key!];
+    if (key == null) {
+      return null;
+    }
+    return _localizedStrings[key];
   }
 }
 
-
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   // This delegate instance will never change (it doesn't even have fields!)
   // It can provide a constant constructor.
   const _AppLocalizationsDelegate();

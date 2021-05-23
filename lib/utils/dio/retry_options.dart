@@ -20,7 +20,7 @@ class RetryOptions {
   }
 
   static RetryOptions? fromExtra(RequestOptions request) {
-    return request.extra[extraKey] as RetryOptions;
+    return request.extra[extraKey];
   }
 
   final int attempt;

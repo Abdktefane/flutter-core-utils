@@ -55,7 +55,7 @@ class RetryInterceptor extends Interceptor {
     );
     try {
       // We retry with the updated options
-      return await dio.request /* <Map<String, dynamic>> */ (
+      final newResponse = await dio.request /* <Map<String, dynamic>> */ (
         err.requestOptions.path,
         data: err.requestOptions.data,
         queryParameters: err.requestOptions.queryParameters,
@@ -65,6 +65,7 @@ class RetryInterceptor extends Interceptor {
         onSendProgress: err.requestOptions.onSendProgress,
         onReceiveProgress: err.requestOptions.onReceiveProgress,
       );
+      return handler.resolve(newResponse);
     } catch (e) {
       return e;
     }

@@ -34,7 +34,7 @@ dependencies:
   injectable: ^1.4.0
 
   # LOCATIONS
-  location: ^4.1.1
+  # location: ^4.1.1
 
   # UI
   fluttertoast: ^8.0.7

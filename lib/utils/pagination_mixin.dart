@@ -12,7 +12,8 @@ mixin PaginationMixin {
   }
 
   void _handleScrollListner() {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent / 2 &&
+        !scrollController.position.outOfRange) {
       onLoadMore();
     }
   }

@@ -1,12 +1,14 @@
-import 'package:core_sdk/utils/debouncer.dart';
 import 'package:flutter/cupertino.dart';
 
 mixin PaginationMixin {
   late ScrollController scrollController;
-  final Debounce debouncer = Debounce(delay: Duration(milliseconds: 600));
+  late double percent;
+  // final processingSet = <int>{};
+  int lastNumberOfPages = 0;
 
-  void initPagination() {
+  void initPagination({double percent = 0.5}) {
     scrollController = ScrollController()..addListener(_handleScrollListner);
+    this.percent = percent;
   }
 
   void disposePagination() {
@@ -14,9 +16,21 @@ mixin PaginationMixin {
   }
 
   void _handleScrollListner() {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent / 2 &&
-        !scrollController.position.outOfRange) {
-      debouncer.run(onLoadMore);
+    // if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+    //   debouncer.run(onLoadMore);
+    // }
+    final double max = scrollController.position.maxScrollExtent;
+    final double viewport = scrollController.position.viewportDimension;
+    final double before = scrollController.position.extentBefore;
+    final int numberOfPages = max ~/ viewport;
+    final int currentPage = before ~/ viewport;
+    if (currentPage / numberOfPages >= percent &&
+            !scrollController.position.outOfRange &&
+            lastNumberOfPages != numberOfPages //&&
+        // !processingSet.contains(currentPage)
+        ) {
+      lastNumberOfPages = numberOfPages;
+      onLoadMore();
     }
   }
 

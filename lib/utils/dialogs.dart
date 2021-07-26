@@ -132,7 +132,6 @@ Future<void> showConfirmDialog(
         ),
         actions: [
           FlatButton(
-            autofocus: true,
             child: Text(
               AppLocalizations.of(context)!.translate('lbl_cancel')!,
               style: cancelButtonStyle ??
@@ -147,6 +146,7 @@ Future<void> showConfirmDialog(
             },
           ),
           FlatButton(
+            autofocus: true,
             child: Text(
               AppLocalizations.of(context)!.translate('lbl_ok')!,
               style: confirmButtonStyle ??

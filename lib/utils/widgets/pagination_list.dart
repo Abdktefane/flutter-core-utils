@@ -14,6 +14,7 @@ class PaginationList<T> extends StatelessWidget {
     this.padding = 0,
     this.shrinkWrap = true,
     this.forceFocus = false,
+    this.canChildRequestFocus = false,
     this.autoFocus = true,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
     this.physics = const BouncingScrollPhysics(),
@@ -39,6 +40,7 @@ class PaginationList<T> extends StatelessWidget {
   final bool forceFocus;
   final bool autoFocus;
   final Map<LogicalKeySet, VoidCallback?>? customKeys;
+  final bool canChildRequestFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -77,14 +79,19 @@ class PaginationList<T> extends StatelessWidget {
                                   )
                               : null
                           : null,
-                      child: (isFocused, isHovered) => FocusScope(
-                        canRequestFocus: false,
-                        child: AnimatedContainer(
+                      child: (isFocused, isHovered) {
+                        final body = AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
                           decoration: selectedDecoratoinBuilder?.call(isFocused || isHovered),
                           child: cardBuilder(dataList[index]),
-                        ),
-                      ),
+                        );
+                        return canChildRequestFocus
+                            ? body
+                            : FocusScope(
+                                canRequestFocus: canChildRequestFocus,
+                                child: body,
+                              );
+                      },
                     )
                   : cardBuilder(dataList[index]),
             )

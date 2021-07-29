@@ -15,17 +15,18 @@ class FocusedColumn<T> extends StatelessWidget {
     this.forceFocus = false,
     this.focusMode = true,
     this.enableShortcuts = true,
-    this.onEnterCallback,
+    this.canChildRequestFocus = false,
+    this.padding = 0,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.verticalDirection = VerticalDirection.down,
     this.textDirection,
+    this.onEnterCallback,
     this.textBaseline,
     this.selectedDecoratoinBuilder,
     this.customKeys,
     this.dataList,
-    this.padding = 0,
   }) : super(key: key);
 
   final bool autoFocus;
@@ -47,6 +48,7 @@ class FocusedColumn<T> extends StatelessWidget {
   final BoxDecoration Function(bool isSelected)? selectedDecoratoinBuilder;
   final Map<LogicalKeySet, ValueChanged<T?>?>? customKeys;
   final bool enableShortcuts;
+  final bool canChildRequestFocus;
 
   BoxDecoration Function(bool isSelected) get decorationBuilder =>
       selectedDecoratoinBuilder ??
@@ -102,14 +104,19 @@ class FocusedColumn<T> extends StatelessWidget {
                                   DirectionalFocusIntent(TraversalDirection.up, ignoreTextFields: ignoreTextFields),
                                 )
                             : null,
-                        child: (isFocused, isHovered) => FocusScope(
-                          canRequestFocus: false,
-                          child: AnimatedContainer(
+                        child: (isFocused, isHovered) {
+                          final body = AnimatedContainer(
                             duration: 250.milliseconds,
                             decoration: decorationBuilder(isFocused || (isHovered && selectOnHover)),
                             child: e,
-                          ),
-                        ),
+                          );
+                          return canChildRequestFocus
+                              ? body
+                              : FocusScope(
+                                  canRequestFocus: canChildRequestFocus,
+                                  child: body,
+                                );
+                        },
                       )
                     : e,
               ),

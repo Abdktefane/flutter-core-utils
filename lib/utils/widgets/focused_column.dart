@@ -11,7 +11,7 @@ class FocusedColumn<T> extends StatelessWidget {
     required this.children,
     this.autoFocus = true,
     this.ignoreTextFields = true,
-    this.rebuildOnFocus = false,
+    this.rebuildOnHover = false,
     this.forceFocus = false,
     this.focusMode = true,
     this.enableShortcuts = true,
@@ -34,7 +34,7 @@ class FocusedColumn<T> extends StatelessWidget {
   final List<Widget> children;
   final bool ignoreTextFields;
   final ValueChanged<T?>? onEnterCallback;
-  final bool rebuildOnFocus;
+  final bool rebuildOnHover;
   final bool forceFocus;
   final bool focusMode;
   final double padding;
@@ -85,7 +85,7 @@ class FocusedColumn<T> extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: padding),
                 child: focusMode
                     ? FAD(
-                        rebuildOnFocus: rebuildOnFocus,
+                        rebuildOnHover: rebuildOnHover,
                         forceFocus: index == 0 && forceFocus,
                         autoFocus: index == 0 && autoFocus,
                         customKeys: enableShortcuts
@@ -111,7 +111,7 @@ class FocusedColumn<T> extends StatelessWidget {
                         child: (isFocused, isHovered) {
                           final body = AnimatedContainer(
                             duration: 250.milliseconds,
-                            decoration: decorationBuilder(isFocused || (isHovered && rebuildOnFocus)),
+                            decoration: decorationBuilder(isFocused || (isHovered && rebuildOnHover)),
                             child: e,
                           );
                           return canChildRequestFocus

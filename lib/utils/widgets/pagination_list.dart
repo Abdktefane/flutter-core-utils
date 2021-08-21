@@ -14,6 +14,7 @@ class PaginationList<T> extends StatelessWidget {
     this.padding = 0,
     this.shrinkWrap = true,
     this.forceFocus = false,
+    this.rebuildOnHover = false,
     this.canChildRequestFocus = false,
     this.autoFocus = true,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
@@ -22,6 +23,7 @@ class PaginationList<T> extends StatelessWidget {
     this.selectedDecoratoinBuilder,
     this.onSelect,
     this.customKeys,
+    this.onHoverCallback,
   }) : super(key: key);
 
   final ScrollPhysics physics;
@@ -41,6 +43,8 @@ class PaginationList<T> extends StatelessWidget {
   final bool autoFocus;
   final Map<LogicalKeySet, VoidCallback?>? customKeys;
   final bool canChildRequestFocus;
+  final bool rebuildOnHover;
+  final ValueChanged<bool>? onHoverCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,7 @@ class PaginationList<T> extends StatelessWidget {
               padding: EdgeInsets.only(bottom: padding),
               child: selectedDecoratoinBuilder != null
                   ? FAD(
+                      rebuildOnHover: rebuildOnHover,
                       forceFocus: index == 0 && forceFocus,
                       autoFocus: 0 == index && autoFocus,
                       customKeys: enableShortcuts ? customKeys : null,
@@ -79,6 +84,7 @@ class PaginationList<T> extends StatelessWidget {
                                   )
                               : null
                           : null,
+                      onHoverCallback: onHoverCallback,
                       child: (isFocused, isHovered) {
                         final body = AnimatedContainer(
                           duration: const Duration(milliseconds: 250),

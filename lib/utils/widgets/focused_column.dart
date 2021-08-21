@@ -11,7 +11,7 @@ class FocusedColumn<T> extends StatelessWidget {
     required this.children,
     this.autoFocus = true,
     this.ignoreTextFields = true,
-    this.selectOnHover = true,
+    this.rebuildOnFocus = false,
     this.forceFocus = false,
     this.focusMode = true,
     this.enableShortcuts = true,
@@ -27,13 +27,14 @@ class FocusedColumn<T> extends StatelessWidget {
     this.selectedDecoratoinBuilder,
     this.customKeys,
     this.dataList,
+    this.onHoverCallback,
   }) : super(key: key);
 
   final bool autoFocus;
   final List<Widget> children;
   final bool ignoreTextFields;
   final ValueChanged<T?>? onEnterCallback;
-  final bool selectOnHover;
+  final bool rebuildOnFocus;
   final bool forceFocus;
   final bool focusMode;
   final double padding;
@@ -49,6 +50,7 @@ class FocusedColumn<T> extends StatelessWidget {
   final Map<LogicalKeySet, ValueChanged<T?>?>? customKeys;
   final bool enableShortcuts;
   final bool canChildRequestFocus;
+  final ValueChanged<bool>? onHoverCallback;
 
   BoxDecoration Function(bool isSelected) get decorationBuilder =>
       selectedDecoratoinBuilder ??
@@ -83,6 +85,7 @@ class FocusedColumn<T> extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: padding),
                 child: focusMode
                     ? FAD(
+                        rebuildOnFocus: rebuildOnFocus,
                         forceFocus: index == 0 && forceFocus,
                         autoFocus: index == 0 && autoFocus,
                         customKeys: enableShortcuts
@@ -104,10 +107,11 @@ class FocusedColumn<T> extends StatelessWidget {
                                   DirectionalFocusIntent(TraversalDirection.up, ignoreTextFields: ignoreTextFields),
                                 )
                             : null,
+                        onHoverCallback: onHoverCallback,
                         child: (isFocused, isHovered) {
                           final body = AnimatedContainer(
                             duration: 250.milliseconds,
-                            decoration: decorationBuilder(isFocused || (isHovered && selectOnHover)),
+                            decoration: decorationBuilder(isFocused || (isHovered && rebuildOnFocus)),
                             child: e,
                           );
                           return canChildRequestFocus

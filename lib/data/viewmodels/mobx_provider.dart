@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class MobxProvider<T extends BaseViewmodel> extends StatefulWidget {
-  MobxProvider({
+  const MobxProvider({
     Key? key,
     this.viewmodel,
     this.automaticDispose = true,
@@ -48,7 +48,7 @@ class _MobxProviderState<T extends BaseViewmodel> extends State<MobxProvider<T>>
 }
 
 class InheritedMobxWidget<T extends BaseViewmodel> extends InheritedWidget {
-  InheritedMobxWidget({
+  const InheritedMobxWidget({
     Key? key,
     this.viewmodel,
     required this.child,

@@ -108,7 +108,7 @@ abstract class _BaseViewmodelBase with Store {
           : null,
       content: Text(
         message,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.white,
           fontWeight: FontWeight.w600,

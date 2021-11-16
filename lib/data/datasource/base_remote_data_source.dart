@@ -5,7 +5,6 @@
 // import 'package:tawreed_customer/common/data/models/netwrok/pagination_response.dart';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 enum METHOD { GET, POST, PUT, DELETE }
 

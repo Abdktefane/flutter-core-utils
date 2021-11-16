@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:core_sdk/utils/colors.dart';
 import 'package:core_sdk/utils/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:tap_debouncer/tap_debouncer.dart';
 
 class SubmitButton extends StatelessWidget {
   final VoidCallback? onSubmit;
@@ -35,32 +36,36 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: isEnabled && !isLoading
-          ? () {
+    return TapDebouncer(
+      onTap: isEnabled && !isLoading
+          ? () async {
               FocusScope.of(context).unfocus();
               onSubmit!();
             }
           : null,
-      color: isEnabled && !isLoading ? color : LIGHT_GREY,
-      elevation: elevation,
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: verticalPadding),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(this.borderRadius)),
-        side: BorderSide(color: isEnabled && !isLoading ? borderColor : Colors.transparent),
-      ),
-      child: Container(
-        width: MediaQuery.of(context).size.width * width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            icon != null ? icon! : Container(),
-            AutoSizeText(
-              title,
-              style: Theme.of(context).textTheme.headline1!.copyWith(color: textColor),
-            ),
-            ProgressBar(visibility: isLoading, padding: 8.0),
-          ],
+      cooldown: const Duration(milliseconds: 800),
+      builder: (context, onTap) => RaisedButton(
+        onPressed: onTap,
+        color: isEnabled && !isLoading ? color : LIGHT_GREY,
+        elevation: elevation,
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: verticalPadding),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(this.borderRadius)),
+          side: BorderSide(color: isEnabled && !isLoading ? borderColor : Colors.transparent),
+        ),
+        child: Container(
+          width: MediaQuery.of(context).size.width * width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              icon != null ? icon! : Container(),
+              AutoSizeText(
+                title,
+                style: Theme.of(context).textTheme.headline1!.copyWith(color: textColor),
+              ),
+              ProgressBar(visibility: isLoading, padding: 8.0),
+            ],
+          ),
         ),
       ),
     );

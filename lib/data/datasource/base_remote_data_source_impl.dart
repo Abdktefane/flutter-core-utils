@@ -11,15 +11,13 @@ import 'package:dio/dio.dart';
 import 'base_remote_data_source.dart';
 
 abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
-  final Dio client;
-  // final DataConnectionChecker connectionChecker;
-  final Logger logger;
-
   BaseRemoteDataSourceImpl({
     required this.client,
-    // @required this.connectionChecker,
     required this.logger,
   });
+
+  final Dio client;
+  final Logger logger;
 
   Future<NetworkResult<T?>> request<T>({
     required METHOD method,
@@ -34,11 +32,12 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
     bool withAuth = true,
     bool wrapData = true,
   }) async {
-    return await _checkNetwork<T?>(() async {
+    return _checkNetwork<T?>(() async {
       late Response response;
       dynamic jsonResponse;
       try {
-        Options options = withAuth ? TokenOption.toOptions().copyWith(headers: headers) : Options(headers: headers);
+        final Options options =
+            withAuth ? TokenOption.toOptions().copyWith(headers: headers) : Options(headers: headers);
         print('data = $data');
         print('endpoint = $endpoint');
 
@@ -78,7 +77,7 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         // logger.d('my debug here ==> $response');
 
         jsonResponse = jsonDecode(response.data);
-        print("my debug res is $jsonResponse");
+        print('my debug res is $jsonResponse');
         if (jsonResponse is! Map && mapper == null) {
           return Success(jsonResponse as T?);
         }
@@ -125,22 +124,22 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
     Options? options,
   }) async {
     try {
-      var response = await client.get(
+      final response = await client.get(
         endpoint,
         queryParameters: params ?? {},
-        options: (options ?? Options()),
+        options: options ?? Options(),
       );
       if (response.statusCode == STATUS_OK) {
         logger.d('BaseRemoteDataSourceImpl => performGetRequest => STATUS_OK');
         return response;
       } else {
         logger.e('BaseRemoteDataSourceImpl => performGetRequest => StatusCode = ${response.statusCode}');
-        throw ServerException('msg_http_exception');
+        throw const ServerException('msg_http_exception');
       }
     } catch (e) {
       logger.e('BaseRemoteDataSourceImpl => performGetRequest => $e');
 
-      throw e is ServerException ? ServerException(e.message) : ServerException('msg_something_wrong');
+      throw e is ServerException ? ServerException(e.message) : const ServerException('msg_something_wrong');
     }
   }
 
@@ -163,11 +162,11 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         return response;
       } else {
         logger.e('BaseRemoteDataSourceImpl => performPostRequest => StatusCode = ${response.statusCode}');
-        throw ServerException('msg_http_exception');
+        throw const ServerException('msg_http_exception');
       }
     } catch (e) {
       logger.e('BaseRemoteDataSourceImpl => performPostRequest => $e');
-      throw e is ServerException ? ServerException(e.message) : ServerException('msg_something_wrong');
+      throw e is ServerException ? ServerException(e.message) : const ServerException('msg_something_wrong');
     }
   }
 
@@ -190,11 +189,11 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         return response;
       } else {
         logger.e('BaseRemoteDataSourceImpl => performPutRequest => StatusCode = ${response.statusCode}');
-        throw ServerException('msg_http_exception');
+        throw const ServerException('msg_http_exception');
       }
     } catch (e) {
       logger.e('BaseRemoteDataSourceImpl => performPutRequest => $e');
-      throw e is ServerException ? ServerException(e.message) : ServerException('msg_something_wrong');
+      throw e is ServerException ? ServerException(e.message) : const ServerException('msg_something_wrong');
     }
   }
 
@@ -217,11 +216,11 @@ abstract class BaseRemoteDataSourceImpl implements BaseRemoteDataSource {
         return response;
       } else {
         logger.e('BaseRemoteDataSourceImpl => performDeleteRequest => StatusCode = ${response.statusCode}');
-        throw ServerException('msg_http_exception');
+        throw const ServerException('msg_http_exception');
       }
     } catch (e) {
       logger.e('BaseRemoteDataSourceImpl => performDeleteRequest => $e');
-      throw e is ServerException ? ServerException(e.message) : ServerException('msg_something_wrong');
+      throw e is ServerException ? ServerException(e.message) : const ServerException('msg_something_wrong');
     }
   }
 }

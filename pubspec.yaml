@@ -27,7 +27,7 @@ dependencies:
   # STATE MANAGMENT
   flutter_bloc: ^7.0.0
   mobx: ^2.0.5
-  provider: ^6.0.1
+  provider: ^5.0.0
 
   # DI
   get_it: ^7.2.0

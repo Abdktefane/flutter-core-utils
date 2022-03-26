@@ -6,7 +6,7 @@
 
 import 'package:dio/dio.dart';
 
-enum METHOD { GET, POST, PUT, DELETE }
+enum METHOD { GET, POST, PUT, DELETE, PATCH }
 
 typedef Mapper<T> = T Function(Object?);
 

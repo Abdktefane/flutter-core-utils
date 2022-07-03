@@ -78,27 +78,25 @@ abstract class _BaseViewmodelBase with Store {
     Duration duration = const Duration(minutes: 10),
     GlobalKey<ScaffoldState>? scaffoldKey,
   }) {
-    if (scaffoldKey != null) {
-      scaffoldKey.currentState!.showSnackBar(snackBarWidget(
-        message,
-        action: action,
-        backgroundColor: backgroundColor,
-        disabledTextColor: disabledTextColor,
-        duration: duration,
-        textColor: textColor,
-      ));
-    } else {
-      getContext(
-        (context) => ScaffoldMessenger.of(context).showSnackBar(snackBarWidget(
-          message,
-          action: action,
-          backgroundColor: backgroundColor,
-          disabledTextColor: disabledTextColor,
-          duration: duration,
-          textColor: textColor,
-        )),
-      );
-    }
+    getContext(
+      (context) => scaffoldKey == null
+          ? ScaffoldMessenger.of(context).showSnackBar(snackBarWidget(
+              context.translate(message),
+              action: action,
+              backgroundColor: backgroundColor,
+              disabledTextColor: disabledTextColor,
+              duration: duration,
+              textColor: textColor,
+            ))
+          : scaffoldKey.currentState!.showSnackBar(snackBarWidget(
+              context.translate(message),
+              action: action,
+              backgroundColor: backgroundColor,
+              disabledTextColor: disabledTextColor,
+              duration: duration,
+              textColor: textColor,
+            )),
+    );
   }
 
   SnackBar snackBarWidget(

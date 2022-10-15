@@ -167,7 +167,7 @@ abstract class _BaseViewmodelBase with Store {
           connectionError = 'msg_no_internet';
         } else if (error is CallException && error.cause is ServerFailure) {
           logger.e('ServerFailure in base view model ${error.cause.message}');
-          block!(error.cause.message);
+          block?.call(error.cause.message);
         } else {
           logger.e('unknown error in base view model $error');
           unknownErrorHandler != null ? unknownErrorHandler(error) : this.unknownErrorHandler(error);

@@ -31,14 +31,13 @@ class ErrorView extends StatelessWidget {
                 fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
               ),
             ),
-            SizedBox(height: 8.0),
-            RaisedButton(
-              color: PURPLE,
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: PURPLE,
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              ),
               onPressed: onRetry,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              )),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -51,8 +50,8 @@ class ErrorView extends StatelessWidget {
                       fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
                     ),
                   ),
-                  SizedBox(width: 8.0),
-                  Icon(Icons.refresh, color: WHITE, size: 24.0),
+                  const SizedBox(width: 8.0),
+                  const Icon(Icons.refresh, color: WHITE, size: 24.0),
                 ],
               ),
             ),

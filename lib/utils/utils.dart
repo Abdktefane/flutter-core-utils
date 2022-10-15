@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:core_sdk/utils/app_localizations.dart';
 import 'package:core_sdk/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'dart:ui' as ui;
+import 'package:intl/intl.dart';
 
 String? dateFormatter(String dateStr, AppLocalizations localizations) {
   if (dateStr == null || dateStr.isEmpty) return '';

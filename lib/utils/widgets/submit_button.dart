@@ -44,15 +44,17 @@ class SubmitButton extends StatelessWidget {
             }
           : null,
       cooldown: const Duration(milliseconds: 800),
-      builder: (context, onTap) => RaisedButton(
-        onPressed: onTap,
-        color: isEnabled && !isLoading ? color : LIGHT_GREY,
-        elevation: elevation,
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: verticalPadding),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(this.borderRadius)),
-          side: BorderSide(color: isEnabled && !isLoading ? borderColor : Colors.transparent),
+      builder: (context, onTap) => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isEnabled && !isLoading ? color : LIGHT_GREY,
+          elevation: elevation,
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: verticalPadding),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(this.borderRadius)),
+            side: BorderSide(color: isEnabled && !isLoading ? borderColor : Colors.transparent),
+          ),
         ),
+        onPressed: onTap,
         child: Container(
           width: MediaQuery.of(context).size.width * width,
           child: Row(

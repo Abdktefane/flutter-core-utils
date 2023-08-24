@@ -31,7 +31,7 @@ dependencies:
 
   # DI
   get_it: ^7.2.0
-  injectable: ^1.5.3
+  injectable: ^2.3.0
 
   # LOCATIONS
   # location: ^4.1.1

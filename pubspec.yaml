@@ -18,7 +18,7 @@ dependencies:
 
 
   # LOCALIZATION
-  intl: ^0.17.0
+  intl: ^0.18.1
  
   # NETWORKING 
   dio: ^4.0.3
